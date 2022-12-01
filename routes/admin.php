@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+Auth::routes();
+
+
+
+Route::middleware('auth')->get('/', function () {
     return view('admin.index');
+});
+Route::get('/confirm', function () {
+    return view('auth.register');
 });
