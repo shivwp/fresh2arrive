@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class EmailTemplates extends Model
+class Products extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'email_key',
-        'email_subject',
-        'email_content',
+        'category_id',
+        'SKU',
+        'name',
+        'qty',
+        'price',
+        'image',
         'status',
     ];
-    
 }

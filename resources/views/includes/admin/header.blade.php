@@ -16,12 +16,12 @@
     </div>
 
     <div class="navbar-menu-wrapper d-flex align-items-top"> 
-        <ul class="navbar-nav">
+        <!-- <ul class="navbar-nav">
             <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
                 <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1>
                 <h3 class="welcome-sub-text">Your performance summary this week </h3>
             </li>
-        </ul>
+        </ul> -->
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown d-none d-lg-block">
             <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false"> Select Category </a>

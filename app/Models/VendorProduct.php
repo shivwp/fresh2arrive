@@ -4,16 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class EmailTemplates extends Model
+class VendorProduct extends Model
 {
     use HasFactory;
 
+    use SoftDeletes;
+
     protected $fillable = [
-        'title',
-        'email_key',
-        'email_subject',
-        'email_content',
+        'vendor_id',
+        'category_id',
+        'SKU',
+        'name',
+        'image',
         'status',
     ];
     
