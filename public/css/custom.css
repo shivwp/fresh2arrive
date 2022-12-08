@@ -1,0 +1,17 @@
+.footer {
+    bottom: 0;
+    position: fixed;
+    width: inherit;
+}
+.main-panel {
+    background: #F4F5F7;
+}
+.hide {
+    display: none;
+}
+.master-pages .content-wrapper {
+    padding: 1.5rem 2.187rem 6.5rem 2.187rem;
+}
+.info {
+    font-size: 0.75rem;
+}

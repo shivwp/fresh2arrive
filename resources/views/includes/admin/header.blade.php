@@ -7,22 +7,22 @@
         </div>
         <div>
             <a class="navbar-brand brand-logo" href="index.html">
-                <img src="images/logo.svg" alt="logo" />
+                <img src="/uploads/logo/logo.png" alt="logo" />
             </a>
             <a class="navbar-brand brand-logo-mini" href="index.html">
-                <img src="images/logo-mini.svg" alt="logo" />
+                <img src="/admin/images/logo-mini.svg" alt="logo" />
             </a>
         </div>
     </div>
 
-    <div class="navbar-menu-wrapper d-flex align-items-top"> 
+    <div class="navbar-menu-wrapper align-items-top"> 
         <!-- <ul class="navbar-nav">
             <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
                 <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">John Doe</span></h1>
                 <h3 class="welcome-sub-text">Your performance summary this week </h3>
             </li>
         </ul> -->
-        <ul class="navbar-nav ms-auto">
+        <!-- <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown d-none d-lg-block">
             <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false"> Select Category </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
@@ -170,7 +170,7 @@
                     <a class="dropdown-item"><i class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
                 </div>
             </li>
-        </ul>
+        </ul> -->
         
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-bs-toggle="offcanvas">
             <span class="mdi mdi-menu"></span>
