@@ -16,9 +16,13 @@ class Helper
 
     public static function storeImage($image, $destinationPath)
     {
-        $file = $image;
-        $name =time().'-'.$file->getClientOriginalName();
-        $temp = $file->move($destinationPath, $name);
-        return $name;
+        try {
+            $file = $image;
+            $name =time().'-'.$file->getClientOriginalName();
+            $file->move($destinationPath, $name);
+            return $name;
+        } catch (\Exception $e) {
+            return 0;
+        }
     }
 }

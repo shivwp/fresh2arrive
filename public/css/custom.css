@@ -12,6 +12,74 @@
 .master-pages .content-wrapper {
     padding: 1.5rem 2.187rem 6.5rem 2.187rem;
 }
+.table td {
+    padding: 0.2rem 0.5rem;
+}
+.mdi-eye {
+    color: #436be2;
+}
+.mdi-table-edit {
+    color: #42c712cc;
+}
+.mdi-delete {
+    color: #ff0000;
+}
 .info {
     font-size: 0.75rem;
+}
+.row.tabelhed {
+    background-color: #ffffff;
+    margin: 0px 0px 10px 0px;
+    padding: 25px 25px 25px 20px;
+    border-radius: 12px;
+}
+.ad-btn {
+    background: #436be2;
+    color: #ffffff;
+}
+.ad-btn:hover {
+    background: #ffffff;
+    color: #436be2;
+    border-color: #436be2;
+}
+.search-btn {
+    border: 1px solid #dee2e6;
+    /* padding: 8px 12px 8px 12px; */
+    border-radius: 4px;
+    margin-right: 0.25rem;
+    margin-left: 0.25rem;
+    background-color: transparent;
+    color: #436be2;
+}
+.reload-btn {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #436be2;
+    text-decoration: none;
+    padding-top: 12px;
+}
+li.page-item {
+    padding: unset;
+}
+.pagination {
+    float: right !important;
+    margin-top: 18px !important;
+}
+.page-item.active .page-link {
+    margin: 0 0.1rem 0 0.3rem;
+}
+.page-item:not(:first-child) .page-link {
+    margin-left: 0.1875rem;
+}
+.page-item .page-link {
+    border-radius: 0.25rem;
+}
+.listViewclr {
+    background-color: #e7e7ff4a !important;
+    margin: 0px 0px 15px;
+}
+.error {
+    color: #dc3545;
+    font-weight: 700;
 }

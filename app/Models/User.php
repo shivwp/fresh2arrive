@@ -65,4 +65,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function driver() {
+        return $this->hasOne(DriverProfile::class,'user_id');
+    }
+    public function vendor() {
+        return $this->hasOne(VendorProfile::class, 'user_id');
+    }
+    public function vendor_availability() {
+        return $this->hasMany(VendorAvailability::class, 'user_id');
+    }
 }

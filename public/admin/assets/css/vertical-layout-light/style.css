@@ -8672,7 +8672,7 @@
   --bs-gray-700: #495057;
   --bs-gray-800: #343a40;
   --bs-gray-900: #212529;
-  --bs-primary: #1F3BB3;
+  --bs-primary: #436BE2;
   --bs-secondary: #F1F1F1;
   --bs-success: #34B1AA;
   --bs-info: #52CDFF;
@@ -8680,7 +8680,7 @@
   --bs-danger: #F95F53;
   --bs-light: #fbfbfb;
   --bs-dark: #1E283D;
-  --bs-primary-rgb: 13, 110, 253;
+  --bs-primary-rgb: 67, 107, 226;
   --bs-secondary-rgb: 108, 117, 125;
   --bs-success-rgb: 25, 135, 84;
   --bs-info-rgb: 13, 202, 240;
@@ -10867,7 +10867,7 @@ textarea.form-control-lg {
   width: 100%;
   padding: 0.375rem 2.25rem 0.375rem 0.75rem;
   -moz-padding-start: calc(0.75rem - 3px);
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
@@ -11455,7 +11455,7 @@ textarea.is-valid.tt-hint {
   display: none;
   width: 100%;
   margin-top: 0.25rem;
-  font-size: 0.875em;
+  font-size: 0.812em;
   color: #dc3545;
 }
 
@@ -13366,7 +13366,7 @@ fieldset:disabled .swal2-modal .swal2-buttonswrapper .swal2-styled,
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid #e3e3e3;
-  border-radius: 20px;
+  border-radius: 12px;
 }
 
 .card > hr {
@@ -13426,7 +13426,7 @@ fieldset:disabled .swal2-modal .swal2-buttonswrapper .swal2-styled,
 }
 
 .card-header:first-child {
-  border-radius: calc(1.35rem - 1px) calc(1.35rem - 1px) 0 0;
+  border-radius: calc(0.75rem - 1px) calc(0.75rem - 1px) 0 0;
 }
 
 .card-footer {
@@ -13436,7 +13436,7 @@ fieldset:disabled .swal2-modal .swal2-buttonswrapper .swal2-styled,
 }
 
 .card-footer:last-child {
-  border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+  border-radius: 0 0 calc(0.75rem - 1px) calc(0.75rem - 1px);
 }
 
 .card-header-tabs {
@@ -13715,7 +13715,7 @@ fieldset:disabled .swal2-modal .swal2-buttonswrapper .swal2-styled,
 }
 
 .page-item.active .page-link {
-  z-index: 3;
+  z-index: 0;
   color: #fff;
   background-color: #0d6efd;
   border-color: #0d6efd;
@@ -21407,7 +21407,7 @@ code {
 
 .btn.btn-sm, .btn-group-sm > .btn, .ajax-upload-dragdrop .btn-group-sm > .ajax-file-upload, .swal2-modal .swal2-buttonswrapper .btn-group-sm > .swal2-styled, .ajax-upload-dragdrop .btn-sm.ajax-file-upload, .swal2-modal .swal2-buttonswrapper .btn-sm.swal2-styled {
   font-size: 0.812rem;
-  border-radius: 15px;
+  border-radius: 0.3rem;
 }
 
 .btn.btn-lg, .btn-group-lg > .btn, .ajax-upload-dragdrop .btn-group-lg > .ajax-file-upload, .swal2-modal .swal2-buttonswrapper .btn-group-lg > .swal2-styled, .ajax-upload-dragdrop .btn-lg.ajax-file-upload, .swal2-modal .swal2-buttonswrapper .btn-lg.swal2-styled {
@@ -24837,9 +24837,9 @@ dl li {
 }
 
 .pagination .page-item.active .page-link, .pagination .page-item:hover .page-link, .pagination .page-item:focus .page-link, .pagination .page-item:active .page-link {
-  background: theme-color("primary");
-  border-color: theme-color("primary");
-  color: color(white);
+  background: #436BE2;
+  border-color: #436BE2;
+  color: #FFFFFF;
 }
 
 .pagination.pagination-flat .page-item {
@@ -25544,9 +25544,8 @@ dl li {
 .table th,
 .table td {
   vertical-align: middle;
-  line-height: 1;
   white-space: nowrap;
-  padding: 1.125rem 1.375rem;
+  padding: 0.5rem 0.5rem;
 }
 
 .table td {
@@ -30870,6 +30869,9 @@ div.tagsinput span.tag a {
   .boxed-layout .navbar.fixed-top {
     margin: auto;
     max-width: 1200px;
+  }
+  .navbar.fixed-top {
+    width: 250px;
   }
 }
 

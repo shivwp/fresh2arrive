@@ -12,7 +12,8 @@ Route::redirect('/', '/login');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
 
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-    Route::resource('bank', BankController::class);
-    Route::resource('user', UserController::class);
+    Route::GET('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+    Route::RESOURCE('bank', BankController::class);
+    Route::RESOURCE('user', UserController::class);
+    Route::GET('user/change-status/{id}', [UserController::class, 'changeStatus'])->name('user.change-status');
 });

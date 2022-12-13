@@ -21,4 +21,8 @@ class VendorProfile extends Model
         'remark',
         'status',
     ];
+
+    public function vendor_availability() {
+        return $this->hasMany(VendorAvailability::class, 'user_id');
+    }
 }
