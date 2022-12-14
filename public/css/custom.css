@@ -83,3 +83,12 @@ li.page-item {
     color: #dc3545;
     font-weight: 700;
 }
+.sidebar-icon-only .sidebar .nav .nav-item.active .sub-menu .nav-link.active:before {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    top: 0;
+    left: -24px;
+    background: #1F3BB3;
+  }

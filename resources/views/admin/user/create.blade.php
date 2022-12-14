@@ -382,6 +382,13 @@
                                         
                                         <div class="row">
                                             <div class="form-group col-md-6">
+                                                @if(!empty($data->vendor->bank_statement))
+                                                    <div class="even mt-3">
+                                                        <span class="pip" data-title="{{$data->vendor->bank_statement}}">
+                                                            <img src="{{ url(config('app.vendor_document')).'/'.$data->vendor->bank_statement ?? "" }}" alt="" width="150" height="100">
+                                                        </span>
+                                                    </div>
+                                                @endif
                                                 <label for="name" class="mt-2"> Bank Statement & Cancel Cheque <span class="text-danger">*</span> <span class="text-danger info">(Only jpeg, png, jpg files allowed)</span></label>
                                                 <input type="file" name="bankStatement" class="form-control is_required @error('bankStatement') is-invalid @enderror" accept="image/png,image/jpeg">
                                                 <input type="hidden" class="form-control" name="bankStatementOld" value="{{ (isset($data) && isset($data->vendor->bank_statement)) ? $data->vendor->bank_statement : ''}}">
@@ -393,6 +400,13 @@
                                             </div>
 
                                             <div class="form-group col-md-6">
+                                                @if(!empty($data->vendor->pan_card_image))
+                                                    <div class="mt-3">
+                                                        <span class="pip" data-title="{{$data->vendor->pan_card_image}}">
+                                                            <img src="{{ url(config('app.vendor_document')).'/'.$data->vendor->pan_card_image ?? "" }}" alt="" width="150" height="100">
+                                                        </span>
+                                                    </div>
+                                                @endif
                                                 <label for="name" class="mt-2"> Pan Card Image <span class="text-danger">*</span> <span class="text-danger info">(Only jpeg, png, jpg files allowed)</span></label>
                                                 <input type="file" name="panCardImage" class="form-control is_required @error('panCardImage') is-invalid @enderror" accept="image/png,image/jpeg">
                                                 <input type="hidden" class="form-control" name="panCardImageOld" value="{{ (isset($data) && isset($data->vendor->pan_card_image)) ? $data->vendor->pan_card_image : ''}}">
@@ -406,6 +420,13 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-6">
+                                                @if(!empty($data->vendor->aadhar_front_image))
+                                                    <div class="even mt-3">
+                                                        <span class="pip" data-title="{{$data->vendor->aadhar_front_image}}">
+                                                            <img src="{{ url(config('app.vendor_document')).'/'.$data->vendor->aadhar_front_image ?? "" }}" alt="" width="150" height="100">
+                                                        </span>
+                                                    </div>
+                                                @endif
                                                 <label for="name" class="mt-2"> Aadhar Card Front <span class="text-danger">*</span> <span class="text-danger info">(Only jpeg, png, jpg files allowed)</span></label>
                                                 <input type="file" name="aadharCardFront" class="form-control is_required @error('aadharCardFront') is-invalid @enderror" accept="image/png,image/jpeg">
                                                 <input type="hidden" class="form-control" name="aadharCardFrontOld" value="{{ (isset($data) && isset($data->vendor->aadhar_front_image)) ? $data->vendor->aadhar_front_image : ''}}">
@@ -417,6 +438,13 @@
                                             </div>
 
                                             <div class="form-group col-md-6">
+                                                @if(!empty($data->vendor->aadhar_back_image))
+                                                    <div class="mt-3">
+                                                        <span class="pip" data-title="{{$data->vendor->aadhar_back_image}}">
+                                                            <img src="{{ url(config('app.vendor_document')).'/'.$data->vendor->aadhar_back_image ?? "" }}" alt="" width="150" height="100">
+                                                        </span>
+                                                    </div>
+                                                @endif
                                                 <label for="name" class="mt-2"> Aadhar Card Back <span class="text-danger">*</span> <span class="text-danger info">(Only jpeg, png, jpg files allowed)</span></label>
                                                 <input type="file" name="aadharCardBack" class="form-control is_required @error('aadharCardBack') is-invalid @enderror" accept="image/png,image/jpeg">
                                                 <input type="hidden" class="form-control" name="aadharCardBackOld" value="{{ (isset($data) && isset($data->vendor->aadhar_back_image)) ? $data->vendor->aadhar_back_image : ''}}">
@@ -524,6 +552,13 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-6">
+                                                @if(!empty($data->vendor->store_image))
+                                                    <div class="mt-3">
+                                                        <span class="pip" data-title="{{$data->vendor->store_image}}">
+                                                            <img src="{{ url(config('app.vendor_document')).'/'.$data->vendor->store_image ?? "" }}" alt="" width="150" height="100">
+                                                        </span>
+                                                    </div>
+                                                @endif
                                                 <label for="name" class="mt-2"> Store Image <span class="text-danger">*</span> <span class="text-danger info">(Only jpeg, png, jpg files allowed)</span></label>
                                                 <input type="file" name="storeImage" class="form-control is_required @error('storeImage') is-invalid @enderror" accept="image/png,image/jpeg">
                                                 <input type="hidden" class="form-control" name="storeImageOld" value="{{ (isset($data) && isset($data->vendor->store_image)) ? $data->vendor->store_image : ''}}">

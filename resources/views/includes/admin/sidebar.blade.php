@@ -1,21 +1,21 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
 	<ul class="nav">
 		<li class="nav-item">
-			<a class="nav-link" href="/">
+			<a class="nav-link" href="{{ route('admin.dashboard') }}">
 				<i class="mdi mdi-grid-large menu-icon"></i>
 				<span class="menu-title">Dashboard</span>
 			</a>
 		</li>
 
-		<li class="nav-item">
-			<a class="nav-link" data-bs-toggle="collapse" href="#user" aria-expanded="false" aria-controls="user">
+		<li class="nav-item {{ request()->is('admin/user*') ? 'active' : '' }}">
+			<a class="nav-link" data-bs-toggle="collapse" href="#user" aria-expanded="{{ request()->is('admin/user*') ? 'true' : 'false' }}" aria-controls="user">
 				<i class="menu-icon mdi mdi-account-circle-outline"></i>
 				<span class="menu-title">Users Management</span>
 				<i class="menu-arrow"></i>
 			</a>
-			<div class="collapse" id="user">
+			<div class="collapse {{ request()->is('admin/user*') ? 'show' : '' }}" id="user">
 				<ul class="nav flex-column sub-menu">
-				<li class="nav-item"> <a class="nav-link" href="{{ route('admin.user.index') }}"> Users </a></li>
+				<li class="nav-item"> <a class="nav-link {{ request()->is('admin/user*') ? 'active' : '' }}" href="{{ route('admin.user.index') }}"> Users </a></li>
 				</ul>
 			</div>
 		</li>
