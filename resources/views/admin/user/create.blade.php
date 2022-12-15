@@ -608,14 +608,14 @@
     
 $(document).ready(function(){
     
-    $(document).on('click', 'input', function(){
+    // $(document).on('click', 'input', function(){
 
-        $(this).next('span.invalid-feedback.form-invalid').css('display','none');
-        console.log($(this).next('span.invalid-feedback.form-invalid'));
+    //     $(this).next('span.invalid-feedback.form-invalid').css('display','none');
+    //     console.log($(this).next('span.invalid-feedback.form-invalid'));
 
-        // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
-        // console.log($(this).closest('span.invalid-feedback.form-invalid'));
-    });
+    //     // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
+    //     // console.log($(this).closest('span.invalid-feedback.form-invalid'));
+    // });
 
     $(document).on("change",".is_driver", function(){
 

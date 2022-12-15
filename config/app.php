@@ -235,4 +235,5 @@ return [
     'profile_image' => env('PROFILE_IMAGE'),
     'driver_document' => env('DRIVER_DOCUMENT'),
     'vendor_document' =>env('VENDOR_DOCUMENT'),
+    'logo' => env('LOGO'),
 ];

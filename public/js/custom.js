@@ -1,5 +1,23 @@
 $(document).ready(function(){
     
+    $(document).on('click', 'input', function(){
+
+        $(this).next('span.invalid-feedback.form-invalid').css('display','none');
+        console.log($(this).next('span.invalid-feedback.form-invalid'));
+
+        // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
+        // console.log($(this).closest('span.invalid-feedback.form-invalid'));
+    });
+
+    $(document).on('click', 'select', function(){
+
+        $(this).next('span.invalid-feedback.form-invalid').css('display','none');
+        console.log($(this).next('span.invalid-feedback.form-invalid'));
+
+        // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
+        // console.log($(this).closest('span.invalid-feedback.form-invalid'));
+    });
+
     // setTimeout(function() {
     //     $('.invalid-feedback.form-invalid').addClass('d-none');
     // },5000);

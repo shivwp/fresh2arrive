@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SettingController;
 
 Auth::routes();
 
@@ -16,4 +17,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::RESOURCE('bank', BankController::class);
     Route::RESOURCE('user', UserController::class);
     Route::GET('user/change-status/{id}', [UserController::class, 'changeStatus'])->name('user.change-status');
+    Route::RESOURCE('setting', SettingController::class);
 });

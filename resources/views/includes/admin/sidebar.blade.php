@@ -34,6 +34,13 @@
 		</li>
 
 		<li class="nav-item">
+			<a class="nav-link" href="{{ route('admin.setting.index') }}">
+				<i class="mdi mdi-settings menu-icon"></i>
+				<span class="menu-title">Setting</span>
+			</a>
+		</li>
+
+		<li class="nav-item">
 			<a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 				<i class="mdi mdi-power menu-icon"></i>
 				<span class="menu-title">Logout</span>

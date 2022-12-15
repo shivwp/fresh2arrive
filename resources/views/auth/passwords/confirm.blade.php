@@ -7,8 +7,11 @@
             <div class="row w-100 mx-0">
                 <div class="col-lg-4 mx-auto">
                     <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                        @php
+                            $data = App\Models\Setting::pluck('value','key');
+                        @endphp
                         <div class="brand-logo">
-                            <img src="../uploads/logo/logo.png" alt="logo">
+                            <img src="{{ url(config('app.logo')).'/'.$data['logo_1'] }}" alt="logo">
                         </div>
 
                         <h6 class="fw-light">Confirm Password</h6>
