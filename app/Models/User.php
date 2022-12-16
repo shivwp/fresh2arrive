@@ -69,10 +69,29 @@ class User extends Authenticatable
     public function driver() {
         return $this->hasOne(DriverProfile::class,'user_id');
     }
+    
     public function vendor() {
         return $this->hasOne(VendorProfile::class, 'user_id');
     }
+
     public function vendor_availability() {
         return $this->hasMany(VendorAvailability::class, 'user_id');
+    }
+    /**
+     * Get User Data By Phone no.
+     * takes parameter phone no.
+     * returns user's data
+     */
+    public static function findByPhone($phone = null) {
+        return static::where('phone', $phone)->first();
+    }
+
+    /**
+     * Get User Data By Referal Code.
+     * takes parameter referal code.
+     * returns user's data
+     */
+    public static function findByReferalCode($referal_code = null) {
+        return static::where('referal_code', $referal_code)->first();
     }
 }

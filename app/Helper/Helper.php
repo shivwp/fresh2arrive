@@ -4,6 +4,7 @@ namespace App\Helper;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class Helper
 {
@@ -24,5 +25,16 @@ class Helper
         } catch (\Exception $e) {
             return 0;
         }
+    }
+
+    public static function generateOtp()
+    {
+        return rand(1111,9999);
+    }
+
+    public static function Messages() {
+        $jsonString = file_get_contents(storage_path('json/message.json'));
+        $data = json_decode($jsonString, true);
+        return $data;
     }
 }

@@ -127,7 +127,7 @@
                                     <div class="col-md-4 ">
                                         <div class="p-3 listViewclr">
                                             <h6 class="fw-bolder">Date Of Birth</h6>
-                                            <p class="mb-0">{{ date('d-m-Y', strtotime($data->driver->dob)) ?? '-'}}</p>
+                                            <p class="mb-0">{{ date('jS M Y', strtotime($data->driver->dob)) ?? '-'}}</p>
                                         </div>
                                     </div>
 

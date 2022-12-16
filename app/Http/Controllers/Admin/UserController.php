@@ -91,7 +91,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required | string',
             'email' => 'required | email | unique:users,email,'.$request->id,
-            'phone' => 'required | integer | unique:users,phone,'.$request->id,
+            'phone' => 'required | digits:10 | integer | unique:users,phone,'.$request->id,
             'profileImage' => 'mimes:jpeg,png,jpg',
             'location' => 'required | string',
             'latitude' => 'required | string',
