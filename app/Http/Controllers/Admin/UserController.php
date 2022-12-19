@@ -250,10 +250,10 @@ class UserController extends Controller
   
         }
         if(!empty($request->id)) {
-            return redirect()->route('admin.user.index')->with('success', "User Updated Successfully!");
+            return redirect()->route('admin.users.index')->with('success', "User Updated Successfully!");
         }
         else {
-            return redirect()->route('admin.user.index')->with('success', "User Created Successfully!");
+            return redirect()->route('admin.users.index')->with('success', "User Created Successfully!");
         }
     }
 

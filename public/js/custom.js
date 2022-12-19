@@ -335,4 +335,5 @@ $(document).ready(function(){
         });
     });
     // script for delete alert popup end
+
 });

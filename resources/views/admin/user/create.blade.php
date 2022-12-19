@@ -23,7 +23,7 @@
                         Create User
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data" id="basic-form">
+                        <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data" id="basic-form">
                             @csrf
                             <input type="hidden" name="id" id="id" value="{{ isset($data) ? $data->id : '' }}">
                             <input type="hidden" name="driver_id" id="driver_id" value="{{ (isset($data) && isset($data->driver)) ? $data->driver->id : '' }}">
