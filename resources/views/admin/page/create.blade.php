@@ -20,7 +20,7 @@
 
                 <div class="card">
                     <div class="card-header border-bottom">
-                        Create Page
+                        {{ isset($data) && isset($data->id) ? 'Edit Page' : 'Create Page' }}
                     </div>
                     <div class="card-body">
                         <form action="{{ route('admin.pages.store') }}" method="POST" enctype="multipart/form-data" id="basic-form">

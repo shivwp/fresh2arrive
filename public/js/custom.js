@@ -3,7 +3,7 @@ $(document).ready(function(){
     $(document).on('click', 'input', function(){
 
         $(this).next('span.invalid-feedback.form-invalid').css('display','none');
-        console.log($(this).next('span.invalid-feedback.form-invalid'));
+        // console.log($(this).next('span.invalid-feedback.form-invalid'));
 
         // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
         // console.log($(this).closest('span.invalid-feedback.form-invalid'));
@@ -12,7 +12,7 @@ $(document).ready(function(){
     $(document).on('click', 'select', function(){
 
         $(this).next('span.invalid-feedback.form-invalid').css('display','none');
-        console.log($(this).next('span.invalid-feedback.form-invalid'));
+        // console.log($(this).next('span.invalid-feedback.form-invalid'));
 
         // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
         // console.log($(this).closest('span.invalid-feedback.form-invalid'));
@@ -261,7 +261,7 @@ $(document).ready(function(){
             url: route,
             success: function(response){
                 if(response.success == true ) {
-                    if(response.userStatus == true ) {
+                    if(response.status == true ) {
                         $this.html('Active');
                         $this.addClass('btn-success').removeClass('btn-danger');
                     }

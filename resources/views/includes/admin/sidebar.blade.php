@@ -40,10 +40,17 @@
 			</a>
 		</li>
 
-		<li class="nav-item">
+		<li class="nav-item {{ request()->is('admin/pages*') ? 'active' : '' }}">
 			<a class="nav-link" href="{{ route('admin.pages.index') }}">
 				<i class="mdi mdi-file menu-icon"></i>
 				<span class="menu-title">Pages</span>
+			</a>
+		</li>
+
+		<li class="nav-item {{ request()->is('admin/categories*') ? 'active' : '' }}">
+			<a class="nav-link" href="{{ route('admin.categories.index') }}">
+				<i class="mdi mdi-file menu-icon"></i>
+				<span class="menu-title">Categories</span>
 			</a>
 		</li>
 

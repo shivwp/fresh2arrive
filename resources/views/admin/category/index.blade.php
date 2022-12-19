@@ -21,21 +21,21 @@
             <div class="col-lg-12">
                 <div class="row tabelhed d-flex justify-content-between">
                     <div class="col-lg-2 col-md-2 col-sm-2 d-flex">
-                            <a class="ad-btn btn text-center" href="{{ route('admin.users.create') }}"> Add</a>
+                            <a class="ad-btn btn text-center" href="{{ route('admin.categories.create') }}"> Add</a>
                     </div>
 
                     <div class="col-lg-10 col-md-10"> 
 
                         <div class="right-item d-flex justify-content-end" >
 
-                            <div class="p-0">
+                            <!-- <div class="p-0">
                                 <select class="form-control" id="role" name="role">
                                     <option value="">Select Role</option>
                                     <option value="driver" {{ isset($role) ? ($role == "driver" ? 'selected' : '' ) : '' }}>Driver</option>
                                     <option value="vendor" {{ isset($role) ? ($role == "vendor" ? 'selected' : '' ) : '' }}>Vendor</option>
                                     <option value="customer" {{ isset($role) ? ($role == "customer" ? 'selected' : '' ) : '' }}>Customer</option>
                                 </select>
-                            </div>
+                            </div> -->
 
                             <div class="p-0 mx-1">
                                 <select class="form-control" id="status" name="status">
@@ -46,13 +46,13 @@
                             </div>
 
                             <div class="d-flex">
-                                <input type="text" name="keyword" id="keyword" class="form-control" value="{{ isset($keyword) ? $keyword : '' }}" placeholder="Search User" required>
+                                <input type="text" name="keyword" id="keyword" class="form-control" value="{{ isset($keyword) ? $keyword : '' }}" placeholder="Search" required>
 
                                 <button class="btn-sm search-btn keyword-btn" type="submit">
                                     <i class="ti-search pl-3" aria-hidden="true"></i>
                                 </button>
 
-                                <a href="{{ route('admin.users.index') }}" class="btn-sm reload-btn">
+                                <a href="{{ route('admin.categories.index') }}" class="btn-sm reload-btn">
                                     <i class="ti-reload pl-3 redirect-icon" aria-hidden="true"></i>
                                 </a>
                             </div>
@@ -64,7 +64,7 @@
                     <div class="card-header ">
                         <div class="row">
                             <div class="col-xl-6 col-md-6 mt-auto">
-                                <h5>Users List</h5>
+                                <h5>Categories</h5>
                             </div>
                             <div class="col-xl-6 col-md-6">
                                 <div class="row float-end">
@@ -90,13 +90,10 @@
                                 <thead>
                                     <tr>
                                         <th>S No.</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone Number</th>
-                                        <th>Wallet Balance</th>
-                                        <th>User Type</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th>Title</th>
+                                        <th>Tax</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
 
@@ -105,40 +102,26 @@
                                         <tr data-entry-id="{{ $value->id }}">
                                             <td>{{ $value->id ?? ''}}</td>
                                             <td>{{ $value->name ?? '' }}</td>
-                                            <td>{{ $value->email ?? '' }}</td>
-                                            <td>{{ $value->phone ?? '' }}</td>
-                                            <td>{{ number_format((float)$value->wallet_balance, 2, '.', '') }}</td>
-                                            <td>
-                                                @if($value->is_driver || $value->is_vendor)
-                                                    @if($value->is_driver)
-                                                        <span class="badge badge-opacity-primary text-capitalize">{{'Driver'}}</span>
-                                                    @endif
-                                                    @if($value->is_vendor)
-                                                        <span class="badge badge-opacity-primary text-capitalize">{{'Vendor'}}</sapn>
-                                                    @endif
-                                                @else
-                                                    <span class="badge badge-opacity-primary text-capitalize">{{'Customer'}}</span>
-                                                @endif
+                                            <td>{{ $value->tax_percent ?? '' }} %</td>
+                                            <td class="text-center">
+                                                <span class="btn btn-xs {{ $value->status ? 'btn-success' : 'btn-danger' }} text-capitalize change-status" route="{{ route('admin.categories.change-status', $value->id) }}">{{ $value->status ? 'Active' : 'In-Active' }}</span>
                                             </td>
                                             <td class="text-center">
-                                                <span class="btn btn-xs {{ $value->status ? 'btn-success' : 'btn-danger' }} text-capitalize change-status" route="{{ route('admin.users.change-status', $value->id) }}">{{ $value->status ? 'Active' : 'In-Active' }}</span>
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="{{ route('admin.users.show', $value->id) }}" class="btn btn-sm btn-icon p-2">
+                                                <a href="{{ route('admin.categories.show', $value->id) }}" class="btn btn-sm btn-icon p-2">
                                                     <i class="mdi mdi-eye mx-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" title="View"></i>
                                                 </a>
             
-                                                <a href="{{ route('admin.users.edit', $value->id) }}" class="btn btn-sm btn-icon p-2">
+                                                <a href="{{ route('admin.categories.edit', $value->id) }}" class="btn btn-sm btn-icon p-2">
                                                     <i class="mdi mdi-table-edit" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" title="Edit"></i>
                                                 </a>
 
-                                                <button type="submit" class="btn btn-sm btn-icon p-2 delete-record" route="{{ route('admin.users.destroy', $value->id) }}"><i class="mdi mdi-delete" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="Delete"></i></button> 
+                                                <button type="submit" class="btn btn-sm btn-icon p-2 delete-record" route="{{ route('admin.categories.destroy', $value->id) }}"><i class="mdi mdi-delete" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="Delete"></i></button> 
 
                                             </td>
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr><td colspan="8">No Data Found</td></tr>
+                                    <tr><td colspan="6">No Data Found</td></tr>
                                 @endif
                             </table>
                             @if ((request()->get('keyword')) || (request()->get('status')) || (request()->get('role')) || (request()->get('items')))

@@ -236,4 +236,5 @@ return [
     'driver_document' => env('DRIVER_DOCUMENT'),
     'vendor_document' =>env('VENDOR_DOCUMENT'),
     'logo' => env('LOGO'),
+    'category_image' => env('CATEGORY_IMAGE'),
 ];

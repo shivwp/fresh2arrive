@@ -91,8 +91,7 @@
                                     <tr>
                                         <th>S No.</th>
                                         <th>Title</th>
-                                        <th>Slug</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
 
@@ -101,7 +100,6 @@
                                         <tr data-entry-id="{{ $value->id }}">
                                             <td>{{ $value->id ?? ''}}</td>
                                             <td>{{ $value->title ?? '' }}</td>
-                                            <td>{{ $value->slug ?? '' }}</td>
                                             <td class="text-center">
                                                 <!-- <a href="{{ route('admin.users.show', $value->id) }}" class="btn btn-sm btn-icon p-2">
                                                     <i class="mdi mdi-eye mx-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" title="View"></i>

@@ -331,7 +331,7 @@ class UserController extends Controller
             if($data) {
                 $data->status = $data->status == 1 ? 0 : 1;
                 $data->save();
-                return response()->json(["success" => true, "userStatus"=> $data->status]);
+                return response()->json(["success" => true, "status"=> $data->status]);
             }
             else {
                 return response()->json(["success" => false]);
