@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\Setting;
-use Illuminate\Support\Str;
+use App\Models\Product;
 use App\Helper\Helper;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $q = Category::query();
+        $q = Product::query();
 
         if($request->keyword){
             $d['keyword'] = $request->keyword;
@@ -37,6 +36,12 @@ class CategoryController extends Controller
             }
         }
 
+        if($request->category){
+            $d['category'] = $request->category;
+
+            $q->where('category_id', '=', $d['category']);
+        }
+
         if($request->items){
             $d['items'] = $request->items;
         }
@@ -44,9 +49,10 @@ class CategoryController extends Controller
             $d['items'] = 10;
         }
 
-        $d['data'] = $q->orderBy('created_at','DESC')->paginate($d['items']);
+        $d['data'] = $q->orderBy('created_at','DESC')->with('Category')->paginate($d['items']);
+        $d['categories'] = Category::where('status', '=', 1)->pluck('name', 'id');
 
-        return view('admin.category.index',$d);
+        return view('admin.product.index',$d);
     }
 
     /**
@@ -56,8 +62,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $d['tax'] = Setting::where('key', 'default_tax')->first();
-        return view('admin.category.create',$d);
+        $d['categories'] = Category::where('status', '=', 1)->pluck('name', 'id');
+        $d['units'] = Helper::Units();
+        return view('admin.product.create',$d);
     }
 
     /**
@@ -70,39 +77,30 @@ class CategoryController extends Controller
     {
         $request->validate(
             [
-                'title' => 'required | string | unique:categories,name,'.$request->id,
-                'tax_percent' => 'required | integer',
+                'title' => 'required | string | unique:products,name,'.$request->id,
+                'category' => 'required',
+                'SKU' => 'required | unique:products,SKU,'.$request->id,
+                'qty' => 'required | numeric',
+                'qty_type' => 'required',
+                'price' => 'required | numeric',
                 'status' => 'required',
             ] + (!empty($request->id) ? ['image' => 'mimes:jpeg,png,jpg'] : ['image' => 'required | mimes:jpeg,png,jpg'])
         );
-        
-        if(empty($request->slug)){
-            $request['slug'] = Str::slug($request->title);
-            $request['new_slug'] = $request['slug'];
 
-            $count=1;
-            while(Category::where('slug', '=', $request['new_slug'])->exists())
-                {
-                    $request['new_slug'] = $request['slug'].'-'.$count;
-                    $count++;
-                }
-        }
-        else
-        {
-            $request['new_slug'] = $request->slug;
-        }
+        $imagePath = config('app.product_image');
 
-        $imagePath = config('app.category_image');
-
-        $pages = Category::updateOrCreate(
+        $pages = Product::updateOrCreate(
             [
                 'id' => $request->id,
             ],
             [
                 'name' => $request->title,
-                'slug' => $request['new_slug'],
+                'category_id' => $request->category,
+                'SKU' => $request->SKU,
+                'qty' => $request->qty,
+                'qty_type' => $request->qty_type,
+                'price' => $request->price,
                 'image' => $request->hasfile('image') ? Helper::storeImage($request->file('image'),$imagePath,$request->imageOld) : (isset($request->imageOld) ? $request->imageOld : ''),
-                'tax_percent' => $request->tax_percent,
                 'status' => $request->status,
             ]
         );
@@ -113,18 +111,17 @@ class CategoryController extends Controller
         {
             if($request->id)
             {
-                return redirect()->route('admin.categories.index')->with('success','Category Updated successfully');
+                return redirect()->route('admin.products.index')->with('success','Product Updated successfully');
             }
             else
             {
-                return redirect()->route('admin.categories.index')->with('success','Category Created successfully');
+                return redirect()->route('admin.products.index')->with('success','Product Created successfully');
             }
         }
         else
         {
             return redirect()->back()->with('error', 'Something went Wrong, Please try again!');
         }
-
     }
 
     /**
@@ -135,9 +132,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $data['data'] = Category::where('id',$id)->first();
+        $data['data'] = Product::where('id',$id)->with('Category')->first();
 
-        return view('admin.category.show',$data);
+        return view('admin.product.show',$data);
     }
 
     /**
@@ -148,8 +145,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $d['data'] = Category::where('id', $id)->first();
-        return view('admin.category.create',$d);
+        $d['categories'] = Category::where('status', '=', 1)->pluck('name', 'id');
+        $d['units'] = Helper::Units();
+        $d['data'] = Product::where('id', $id)->first();
+        return view('admin.product.create',$d);
     }
 
     /**
@@ -173,10 +172,10 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         try {
-            $data= Category::where('id',$id)->first();
+            $data= Product::where('id',$id)->first();
             $result = $data->delete();
             if($result) {
-                // $imagePath = config('app.category_image');
+                // $imagePath = config('app.product_image');
                 // if(isset($data->image)) {
                 //     Helper::removeImage($imagePath,$data->image);
                 // }
@@ -203,7 +202,7 @@ class CategoryController extends Controller
     public function changeStatus($id, Request $request)
     {
         try {
-            $data= Category::where('id',$id)->first();
+            $data= Product::where('id',$id)->first();
             if($data) {
                 $data->status = $data->status == 1 ? 0 : 1;
                 $data->save();

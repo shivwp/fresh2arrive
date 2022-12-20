@@ -19,8 +19,10 @@ class Helper
     public static function storeImage($image, $destinationPath, $old_image = null)
     {
         try {
-            if(File::exists($destinationPath.'/'.$old_image)) {
-                unlink($destinationPath.'/'.$old_image);
+            if(!empty($old_image)) {
+                if(File::exists($destinationPath.'/'.$old_image)) {
+                    unlink($destinationPath.'/'.$old_image);
+                }
             }
             $file = $image;
             $name =time().'-'.$file->getClientOriginalName();
@@ -31,17 +33,19 @@ class Helper
         }
     }
 
-    public static function removeImage($destinationPath, $old_image = null)
-    {
-        try {
-            if(File::exists($destinationPath.'/'.$old_image)) {
-                unlink($destinationPath.'/'.$old_image);
-            }
-            return 'Image Removed';
-        } catch (\Exception $e) {
-            return 0;
-        }
-    }
+    // public static function removeImage($destinationPath, $old_image = null)
+    // {
+    //     try {
+    //         if(!empty($old_image)) {
+    //             if(File::exists($destinationPath.'/'.$old_image)) {
+    //                 unlink($destinationPath.'/'.$old_image);
+    //             }
+    //         }
+    //         return 'Image Removed';
+    //     } catch (\Exception $e) {
+    //         return 0;
+    //     }
+    // }
 
     public static function generateOtp()
     {
@@ -52,5 +56,17 @@ class Helper
         $jsonString = file_get_contents(storage_path('json/message.json'));
         $data = json_decode($jsonString, true);
         return $data;
+    }
+
+    public static function Units() {
+        $units = [
+            'kg' => 'kg',
+            'grm' => 'grm',
+            'ltr' => 'ltr',
+            'ml' => 'ml',
+            'dozen' => 'dozen'
+        ];
+
+        return $units;
     }
 }

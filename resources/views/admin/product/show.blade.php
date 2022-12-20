@@ -9,7 +9,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header border-bottom">
-                       Category Details
+                       Product Details
                     </div>
                     <div class="card-body">
                         <div class="mb-2">
@@ -26,8 +26,29 @@
 
                                 <div class="col-md-4">
                                     <div class="p-3 listViewclr">
-                                        <h6 class="fw-bolder">Tax</h6>
-                                        <p class="mb-0">{{ $data->tax_percent.' %' ?? '-'}}</p>
+                                        <h6 class="fw-bolder">Category</h6>
+                                        <p class="mb-0">{{ isset($data) && isset($data->category->name) ? $data->category->name : '-'}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="p-3 listViewclr">
+                                        <h6 class="fw-bolder">SKU</h6>
+                                        <p class="mb-0">{{ $data->SKU ?? '-'}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="p-3 listViewclr">
+                                        <h6 class="fw-bolder">Quantity</h6>
+                                        <p class="mb-0">{{ $data->qty.' '.$data->qty_type ?? '-'}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="p-3 listViewclr">
+                                        <h6 class="fw-bolder">Price</h6>
+                                        <p class="mb-0">{{ number_format((float)$data->price, 2, '.', '') }}</p>
                                     </div>
                                 </div>
 
@@ -46,7 +67,7 @@
                                             <div class="even mt-3">
                                                 <div class="parc">
                                                     <span class="pip" data-title="{{$data->image}}">
-                                                        <img src="{{ url(config('app.category_image')).'/'.$data->image ?? '' }}" alt="" width="150" height="100">
+                                                        <img src="{{ url(config('app.product_image')).'/'.$data->image ?? '' }}" alt="" width="150" height="100">
                                                     </span>
                                                 </div>
                                             </div>

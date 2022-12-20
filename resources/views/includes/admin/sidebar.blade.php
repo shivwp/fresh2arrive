@@ -54,6 +54,13 @@
 			</a>
 		</li>
 
+		<li class="nav-item {{ request()->is('admin/products*') ? 'active' : '' }}">
+			<a class="nav-link" href="{{ route('admin.products.index') }}">
+				<i class="mdi mdi-file menu-icon"></i>
+				<span class="menu-title">Products</span>
+			</a>
+		</li>
+
 		<li class="nav-item">
 			<a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 				<i class="mdi mdi-power menu-icon"></i>

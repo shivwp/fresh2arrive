@@ -21,21 +21,27 @@
             <div class="col-lg-12">
                 <div class="row tabelhed d-flex justify-content-between">
                     <div class="col-lg-2 col-md-2 col-sm-2 d-flex">
-                            <a class="ad-btn btn text-center" href="{{ route('admin.categories.create') }}"> Add</a>
+                            <a class="ad-btn btn text-center" href="{{ route('admin.products.create') }}"> Add</a>
                     </div>
 
                     <div class="col-lg-10 col-md-10"> 
 
                         <div class="right-item d-flex justify-content-end" >
 
-                            <!-- <div class="p-0">
-                                <select class="form-control" id="role" name="role">
-                                    <option value="">Select Role</option>
-                                    <option value="driver" {{ isset($role) ? ($role == "driver" ? 'selected' : '' ) : '' }}>Driver</option>
-                                    <option value="vendor" {{ isset($role) ? ($role == "vendor" ? 'selected' : '' ) : '' }}>Vendor</option>
-                                    <option value="customer" {{ isset($role) ? ($role == "customer" ? 'selected' : '' ) : '' }}>Customer</option>
+                            <!-- <div class="p-0"> -->
+                            <form action="" method="GET">
+                                <select class="form-control" id="category" name="category">
+                                    <option value="">Select Category</option>
+                                    @foreach($categories as $key => $value) 
+                                        <option value={{$key}} {{ isset($category) ? ($category == $key ? 'selected' : '' ) : '' }} >{{ $value }}</option>
+                                    @endforeach
                                 </select>
-                            </div> -->
+
+                                @if(isset($_GET['status']))<input type="hidden" name="status" value="{{$_GET['status']}}">@endif
+                                @if(isset($_GET['keyword']))<input type="hidden" name="keyword" value="{{$_GET['keyword']}}">@endif
+                                @if(isset($_GET['items']))<input type="hidden" name="items" value="{{$_GET['items']}}">@endif
+                            </form>
+                            <!-- </div> -->
 
                             <!-- <div class="p-0 mx-1"> -->
                             <form action="" method="GET" class="mx-1">
@@ -45,12 +51,12 @@
                                     <option value="in-active" {{ isset($status) ? ($status == "in-active" ? 'selected' : '' ) : '' }} >In-Active</option>
                                 </select>
 
+                                @if(isset($_GET['category']))<input type="hidden" name="category" value="{{$_GET['category']}}">@endif
                                 @if(isset($_GET['keyword']))<input type="hidden" name="keyword" value="{{$_GET['keyword']}}">@endif
                                 @if(isset($_GET['items']))<input type="hidden" name="items" value="{{$_GET['items']}}">@endif
                             </form>
                             <!-- </div> -->
 
-                            <!-- <div class="d-flex"> -->
                             <form action="" method="GET" class="d-flex">
                                 <input type="text" name="keyword" id="keyword" class="form-control" value="{{ isset($keyword) ? $keyword : '' }}" placeholder="Search" required>
 
@@ -58,14 +64,14 @@
                                     <i class="ti-search pl-3" aria-hidden="true"></i>
                                 </button>
 
-                                <a href="{{ route('admin.categories.index') }}" class="btn-sm reload-btn">
+                                <a href="{{ route('admin.products.index') }}" class="btn-sm reload-btn">
                                     <i class="ti-reload pl-3 redirect-icon" aria-hidden="true"></i>
                                 </a>
 
+                                @if(isset($_GET['category']))<input type="hidden" name="category" value="{{$_GET['category']}}">@endif
                                 @if(isset($_GET['status']))<input type="hidden" name="status" value="{{$_GET['status']}}">@endif
                                 @if(isset($_GET['items']))<input type="hidden" name="items" value="{{$_GET['items']}}">@endif
                             </form>
-                            <!-- </div> -->
                         </div>
                     </div>
                 </div>
@@ -74,7 +80,7 @@
                     <div class="card-header ">
                         <div class="row">
                             <div class="col-xl-6 col-md-6 mt-auto">
-                                <h5>Categories</h5>
+                                <h5>Products</h5>
                             </div>
                             <div class="col-xl-6 col-md-6">
                                 <div class="row float-end">
@@ -89,6 +95,7 @@
                                                     <option value='50' {{ isset($items) ? ($items == '50' ? 'selected' : '' ) : '' }}>50</option>
                                                 </select>
 
+                                                @if(isset($_GET['category']))<input type="hidden" name="category" value="{{$_GET['category']}}">@endif
                                                 @if(isset($_GET['status']))<input type="hidden" name="status" value="{{$_GET['status']}}">@endif
                                                 @if(isset($_GET['keyword']))<input type="hidden" name="keyword" value="{{$_GET['keyword']}}">@endif
                                             </form>
@@ -106,7 +113,9 @@
                                     <tr>
                                         <th>S No.</th>
                                         <th>Title</th>
-                                        <th>Tax</th>
+                                        <th>Category</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -117,30 +126,32 @@
                                         <tr data-entry-id="{{ $value->id }}">
                                             <td>{{ $value->id ?? ''}}</td>
                                             <td>{{ $value->name ?? '' }}</td>
-                                            <td>{{ $value->tax_percent ?? '' }} %</td>
+                                            <td>{{ $value->category->name ?? '' }}</td>
+                                            <td>{{ $value->qty.' '.$value->qty_type ?? '-'}}</td>
+                                            <td>{{ number_format((float)$value->price, 2, '.', '') }}</td>
                                             <td class="text-center">
-                                                <span class="btn btn-xs {{ $value->status ? 'btn-success' : 'btn-danger' }} text-capitalize change-status" route="{{ route('admin.categories.change-status', $value->id) }}">{{ $value->status ? 'Active' : 'In-Active' }}</span>
+                                                <span class="btn btn-xs {{ $value->status ? 'btn-success' : 'btn-danger' }} text-capitalize change-status" route="{{ route('admin.products.change-status', $value->id) }}">{{ $value->status ? 'Active' : 'In-Active' }}</span>
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ route('admin.categories.show', $value->id) }}" class="btn btn-sm btn-icon p-2">
+                                                <a href="{{ route('admin.products.show', $value->id) }}" class="btn btn-sm btn-icon p-2">
                                                     <i class="mdi mdi-eye mx-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" title="View"></i>
                                                 </a>
             
-                                                <a href="{{ route('admin.categories.edit', $value->id) }}" class="btn btn-sm btn-icon p-2">
+                                                <a href="{{ route('admin.products.edit', $value->id) }}" class="btn btn-sm btn-icon p-2">
                                                     <i class="mdi mdi-pencil" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" title="Edit"></i>
                                                 </a>
 
-                                                <button type="submit" class="btn btn-sm btn-icon p-2 delete-record" route="{{ route('admin.categories.destroy', $value->id) }}"><i class="mdi mdi-delete" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="Delete"></i></button> 
+                                                <button type="submit" class="btn btn-sm btn-icon p-2 delete-record" route="{{ route('admin.products.destroy', $value->id) }}"><i class="mdi mdi-delete" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="Delete"></i></button> 
 
                                             </td>
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr><td colspan="5">No Data Found</td></tr>
+                                    <tr><td colspan="7">No Data Found</td></tr>
                                 @endif
                             </table>
-                            @if ((request()->get('keyword')) || (request()->get('status')) || (request()->get('items')))
-                                {{ $data->appends(['keyword' => request()->get('keyword'),'status' => request()->get('status'),'items' => request()->get('items')])->links() }}
+                            @if ((request()->get('keyword')) || (request()->get('status')) || (request()->get('category')) || (request()->get('items')))
+                                {{ $data->appends(['keyword' => request()->get('keyword'),'status' => request()->get('status'),'category' => request()->get('category'),'items' => request()->get('items')])->links() }}
                             @else
                                 {{ $data->links() }}
                             @endif

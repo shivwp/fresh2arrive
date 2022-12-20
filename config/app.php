@@ -237,4 +237,5 @@ return [
     'vendor_document' =>env('VENDOR_DOCUMENT'),
     'logo' => env('LOGO'),
     'category_image' => env('CATEGORY_IMAGE'),
+    'product_image' => env('PRODUCT_IMAGE'),
 ];

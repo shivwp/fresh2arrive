@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 
 Auth::routes();
 
@@ -23,4 +24,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::RESOURCE('pages', PageController::class);
     Route::RESOURCE('categories', CategoryController::class);
     Route::GET('categories/change-status/{id}', [CategoryController::class, 'changeStatus'])->name('categories.change-status');
+    Route::RESOURCE('products', ProductController::class);
+    Route::GET('products/change-status/{id}', [ProductController::class, 'changeStatus'])->name('products.change-status');
 });

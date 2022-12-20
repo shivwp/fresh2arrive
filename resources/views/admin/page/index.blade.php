@@ -106,7 +106,7 @@
                                                 </a> -->
             
                                                 <a href="{{ route('admin.pages.edit', $value->id) }}" class="btn btn-sm btn-icon p-2">
-                                                    <i class="mdi mdi-table-edit" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" title="Edit"></i>
+                                                    <i class="mdi mdi-pencil" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" title="Edit"></i>
                                                 </a>
 
                                                 <button type="submit" class="btn btn-sm btn-icon p-2 delete-record" route="{{ route('admin.pages.destroy', $value->id) }}"><i class="mdi mdi-delete" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="Delete"></i></button> 
@@ -115,11 +115,11 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr><td colspan="4">No Data Found</td></tr>
+                                    <tr><td colspan="3">No Data Found</td></tr>
                                 @endif
                             </table>
-                            @if ((request()->get('keyword')) || (request()->get('status')) || (request()->get('role')) || (request()->get('items')))
-                                {{ $data->appends(['keyword' => request()->get('keyword'),'status' => request()->get('status'),'role' => request()->get('role'),'items' => request()->get('items')])->links() }}
+                            @if ((request()->get('keyword')) || (request()->get('items')))
+                                {{ $data->appends(['keyword' => request()->get('keyword'),'items' => request()->get('items')])->links() }}
                             @else
                                 {{ $data->links() }}
                             @endif
