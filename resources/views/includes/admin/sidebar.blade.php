@@ -20,6 +20,27 @@
 			</div>
 		</li>
 
+		<li class="nav-item {{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*'))) ? 'active' : '' }}">
+			<a class="nav-link" data-bs-toggle="collapse" href="#master" aria-expanded="{{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*'))) ? 'true' : 'false' }}" aria-controls="master">
+				<i class="menu-icon mdi mdi-database"></i>
+				<span class="menu-title">Master Entries</span>
+				<i class="menu-arrow"></i>
+			</a>
+			<div class="collapse {{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*'))) ? 'show' : '' }}" id="master">
+				<ul class="nav flex-column sub-menu">
+					<li class="nav-item">
+						<a class="nav-link {{ request()->is('admin/pages*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}"> Pages </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{ request()->is('admin/categories*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}"> Categories </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{ request()->is('admin/products*') ? 'active' : '' }}" href="{{ route('admin.products.index') }}"> Products </a>
+					</li>
+				</ul>
+			</div>
+		</li>
+
 		<li class="nav-item">
 			<a class="nav-link" data-bs-toggle="collapse" href="#bank" aria-expanded="false" aria-controls="bank">
 				<i class="mdi mdi-bank menu-icon"></i>
@@ -40,7 +61,7 @@
 			</a>
 		</li>
 
-		<li class="nav-item {{ request()->is('admin/pages*') ? 'active' : '' }}">
+		<!-- <li class="nav-item {{ request()->is('admin/pages*') ? 'active' : '' }}">
 			<a class="nav-link" href="{{ route('admin.pages.index') }}">
 				<i class="mdi mdi-file menu-icon"></i>
 				<span class="menu-title">Pages</span>
@@ -59,7 +80,7 @@
 				<i class="mdi mdi-file menu-icon"></i>
 				<span class="menu-title">Products</span>
 			</a>
-		</li>
+		</li> -->
 
 		<li class="nav-item">
 			<a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

@@ -11,8 +11,6 @@ use App\Models\VendorAvailability;
 use App\Helper\Helper;
 use Hash;
 use DB;
-// use Illuminate\Validation\Rule;
-// use Illuminate\Contracts\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -24,16 +22,20 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $q = User::query();
-
-        if($request->keyword){
+        
+        if(isset($request->keyword)){
             $d['keyword'] = $request->keyword;
-
-            $q->where('name', 'like', '%'.$d['keyword'].'%')->orwhere('email', 'like', '%'.$d['keyword'].'%')->orwhere('phone', 'like', '%'.$d['keyword'].'%');
+    
+            $q->where(function ($query) use ($d) {
+                $query->where('name', 'like', '%'.$d['keyword'].'%')
+                ->orwhere('email', 'like', '%'.$d['keyword'].'%')
+                ->orwhere('phone', 'like', '%'.$d['keyword'].'%');
+            });
         }
 
-        if($request->role){
+        if(isset($request->role)){
             $d['role'] = $request->role;
-
+            
             if($request->role == 'driver') {
                 $q->where('is_driver', '=', 1);
             }
@@ -44,10 +46,10 @@ class UserController extends Controller
                 $q->where('is_vendor', '=', 0)->where('is_driver', '=', 0);
             }
         }
-
-        if($request->status){
+        
+        if(isset($request->status)){
             $d['status'] = $request->status;
-
+            
             if($request->status == 'active'){
                 $q->where('status', '=', 1);
             }
@@ -56,7 +58,7 @@ class UserController extends Controller
             }
         }
 
-        if($request->items){
+        if(isset($request->items)){
             $d['items'] = $request->items;
         }
         else{
@@ -112,18 +114,18 @@ class UserController extends Controller
             'required_if' => 'The :attribute field is required.',
         ]);
 
-        if($request->id) {
-            if(!empty($request->password)) {
-                $request->validate([
-                    'password' => ['regex:/^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).*$/', 'string', 'min:8'],
-                ]);
-            }
-        }
+        // if($request->id) {
+        //     if(!empty($request->password)) {
+        //         $request->validate([
+        //             'password' => ['regex:/^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).*$/', 'string', 'min:8'],
+        //         ]);
+        //     }
+        // }
 
         if(empty($request->id)) {
             $request->validate([
-                'password' => ['required', 'regex:/^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).*$/', 'string', 'min:8'],
-                
+                // 'password' => ['required', 'regex:/^.*(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%]).*$/', 'string', 'min:8'],
+
                 'driverStatement' => 'required_if:driver,1 | mimes:jpeg,png,jpg',
                 'driverPanImage' => 'required_if:driver,1 | mimes:jpeg,png,jpg',
                 'driverLicenceFront' => 'required_if:driver,1 | mimes:jpeg,png,jpg',
@@ -164,7 +166,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'profile_image' => $request->hasfile('profileImage') ? Helper::storeImage($request->file('profileImage'),$imagePath) : (isset($request->profileImageOld) ? $request->profileImageOld : ''),
+            'profile_image' => $request->hasfile('profileImage') ? Helper::storeImage($request->file('profileImage'), $imagePath, $request->profileImageOld) : (isset($request->profileImageOld) ? $request->profileImageOld : ''),
             'location' => $request->location,
             'latitude' => $request->latitude,
             'longitude' => $request->longitude,
@@ -202,12 +204,12 @@ class UserController extends Controller
                 'pan_no' => $request->driverPanCard,
                 'vehicle_no' => $request->driverVehicle,
                 'licence_no' => $request->driverDrivingLicence,
-                'bank_statement' => $request->hasfile('driverStatement') ? Helper::storeImage($request->file('driverStatement'),$imagePath) : (isset($request->driverStatementOld) ? $request->driverStatementOld : ''),
-                'pan_card_image' => $request->hasfile('driverPanImage') ? Helper::storeImage($request->file('driverPanImage'),$imagePath) : (isset($request->driverPanImageOld) ? $request->driverPanImageOld : ''),
-                'licence_front_image' => $request->hasfile('driverLicenceFront') ? Helper::storeImage($request->file('driverLicenceFront'),$imagePath) : (isset($request->driverLicenceFrontOld) ? $request->driverLicenceFrontOld : ''),
-                'licence_back_image' => $request->hasfile('driverLicenceBack') ? Helper::storeImage($request->file('driverLicenceBack'),$imagePath) : (isset($request->driverLicenceBackOld) ? $request->driverLicenceBackOld : ''),
-                'aadhar_front_image' => $request->hasfile('driverAadharFront') ? Helper::storeImage($request->file('driverAadharFront'),$imagePath) : (isset($request->driverAadharFrontOld) ? $request->driverAadharFrontOld : ''),
-                'aadhar_back_image' => $request->hasfile('driverAadharBack') ? Helper::storeImage($request->file('driverAadharBack'),$imagePath) : (isset($request->driverAadharBackOld) ? $request->driverAadharBackOld : ''),
+                'bank_statement' => $request->hasfile('driverStatement') ? Helper::storeImage($request->file('driverStatement'), $imagePath, $request->driverStatementOld) : (isset($request->driverStatementOld) ? $request->driverStatementOld : ''),
+                'pan_card_image' => $request->hasfile('driverPanImage') ? Helper::storeImage($request->file('driverPanImage'), $imagePath, $request->driverPanImageOld) : (isset($request->driverPanImageOld) ? $request->driverPanImageOld : ''),
+                'licence_front_image' => $request->hasfile('driverLicenceFront') ? Helper::storeImage($request->file('driverLicenceFront'), $imagePath, $request->driverLicenceFrontOld) : (isset($request->driverLicenceFrontOld) ? $request->driverLicenceFrontOld : ''),
+                'licence_back_image' => $request->hasfile('driverLicenceBack') ? Helper::storeImage($request->file('driverLicenceBack'), $imagePath, $request->driverLicenceBackOld) : (isset($request->driverLicenceBackOld) ? $request->driverLicenceBackOld : ''),
+                'aadhar_front_image' => $request->hasfile('driverAadharFront') ? Helper::storeImage($request->file('driverAadharFront'), $imagePath, $request->driverAadharFrontOld) : (isset($request->driverAadharFrontOld) ? $request->driverAadharFrontOld : ''),
+                'aadhar_back_image' => $request->hasfile('driverAadharBack') ? Helper::storeImage($request->file('driverAadharBack'), $imagePath, $request->driverAadharBackOld) : (isset($request->driverAadharBackOld) ? $request->driverAadharBackOld : ''),
                 'status' => $request->driverVerify ? $request->driverVerify : 0,
             ]);
         }
@@ -224,11 +226,11 @@ class UserController extends Controller
                 'user_id' => $userData->id,
                 'aadhar_no' => $request->aadharNumber,
                 'pan_no' => $request->panCardNumber,
-                'store_image' => $request->hasfile('storeImage') ? Helper::storeImage($request->file('storeImage'),$imagePath) : (isset($request->storeImageOld) ? $request->storeImageOld : ''),
-                'bank_statement' => $request->hasfile('bankStatement') ? Helper::storeImage($request->file('bankStatement'),$imagePath) : (isset($request->bankStatementOld) ? $request->bankStatementOld : ''),
-                'pan_card_image' => $request->hasfile('panCardImage') ? Helper::storeImage($request->file('panCardImage'),$imagePath) : (isset($request->panCardImageOld) ? $request->panCardImageOld : ''),
-                'aadhar_front_image' => $request->hasfile('aadharCardFront') ? Helper::storeImage($request->file('aadharCardFront'),$imagePath) : (isset($request->aadharCardFrontOld) ? $request->aadharCardFrontOld : ''),
-                'aadhar_back_image' => $request->hasfile('aadharCardBack') ? Helper::storeImage($request->file('aadharCardBack'),$imagePath) : (isset($request->aadharCardBackOld) ? $request->aadharCardBackOld : ''),
+                'store_image' => $request->hasfile('storeImage') ? Helper::storeImage($request->file('storeImage'), $imagePath, $request->storeImageOld) : (isset($request->storeImageOld) ? $request->storeImageOld : ''),
+                'bank_statement' => $request->hasfile('bankStatement') ? Helper::storeImage($request->file('bankStatement'), $imagePath, $request->bankStatementOld) : (isset($request->bankStatementOld) ? $request->bankStatementOld : ''),
+                'pan_card_image' => $request->hasfile('panCardImage') ? Helper::storeImage($request->file('panCardImage'), $imagePath, $request->panCardImageOld) : (isset($request->panCardImageOld) ? $request->panCardImageOld : ''),
+                'aadhar_front_image' => $request->hasfile('aadharCardFront') ? Helper::storeImage($request->file('aadharCardFront'), $imagePath, $request->aadharCardFrontOld) : (isset($request->aadharCardFrontOld) ? $request->aadharCardFrontOld : ''),
+                'aadhar_back_image' => $request->hasfile('aadharCardBack') ? Helper::storeImage($request->file('aadharCardBack'), $imagePath, $request->aadharCardBackOld) : (isset($request->aadharCardBackOld) ? $request->aadharCardBackOld : ''),
                 'status' => $request->vendorVerify ? $request->vendorVerify : 0,
             ]);
 

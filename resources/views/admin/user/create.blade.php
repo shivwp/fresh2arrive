@@ -53,7 +53,15 @@
                             </div>
 
                             <div class="row">
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-6 mt-auto">
+                                    <!-- <label for="name" class="mt-2"> Password  <span class="text-danger">{{ isset($data) && isset($data->id) ? '' : '*' }}</span> }} <i class="mdi mdi-information-outline" data-toggle="tooltip" data-placement="right" title="Password must contain atleast one Lower case letter, atleast one Upper case letter, atleast one Number and atleast one Special character."></i></label>
+                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" minlength="8" {{ isset($data) ? '' : 'required' }}>
+                                    @error('password')
+                                        <span class="invalid-feedback form-invalid fw-bold" role="alert">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror -->
+
                                     <label for="name" class="mt-2"> Phone <span class="text-danger">*</span></label>
                                     <input type="number" name="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Phone" value="{{ old('phone', isset($data) ? $data->phone : '') }}" min="0" minlength="10" maxlength="10" required>
                                     @error('phone')
@@ -64,25 +72,13 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Password  <span class="text-danger">{{ isset($data) && isset($data->id) ? '' : '*' }}</span> <i class="mdi mdi-information-outline" data-toggle="tooltip" data-placement="right" title="Password must contain atleast one Lower case letter, atleast one Upper case letter, atleast one Number and atleast one Special character."></i></label>
-                                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" minlength="8" {{ isset($data) ? '' : 'required' }}>
-                                    @error('password')
-                                        <span class="invalid-feedback form-invalid fw-bold" role="alert">
-                                            {{ $message }}
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                @if(!empty($data->profile_image))
-                                    <div class="mt-3">
-                                        <span class="pip" data-title="{{$data->profile_image}}">
-                                            <img src="{{ url(config('app.profile_image')).'/'.$data->profile_image ?? '' }}" alt="" width="150" height="100">
-                                        </span>
-                                    </div>
-                                @endif
-                                <div class="form-group col-md-6">
+                                    @if(!empty($data->profile_image))
+                                        <div class="mt-3">
+                                            <span class="pip" data-title="{{$data->profile_image}}">
+                                                <img src="{{ url(config('app.profile_image')).'/'.$data->profile_image ?? '' }}" alt="" width="150" height="100">
+                                            </span>
+                                        </div>
+                                    @endif
                                     <label for="name" class="mt-2"> Profile Image <span class="text-danger info">(Only jpeg, png, jpg files allowed)</span></label>
                                     <input type="file" name="profileImage" class="form-control @error('profileImage') is-invalid @enderror" accept="image/jpeg,image/png">
                                     <input type="hidden" class="form-control" name="profileImageOld" value="{{ isset($data) ? $data->profile_image : ''}}">
@@ -92,7 +88,9 @@
                                         </span>
                                     @enderror
                                 </div>
+                            </div>
 
+                            <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="name" class="mt-2"> Location <span class="text-danger">*</span></label>
                                     <input type="text" name="location" class="form-control @error('location') is-invalid @enderror" placeholder="Location" value="{{ old('location', isset($data) ? $data->location : '') }}" required>
@@ -102,9 +100,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="name" class="mt-2"> Latitude <span class="text-danger">*</span></label>
                                     <input type="text" name="latitude" class="form-control @error('latitude') is-invalid @enderror" placeholder="Latitude" value="{{ old('latitude', isset($data) ? $data->latitude : '') }}" required>
@@ -114,29 +110,40 @@
                                         </span>
                                     @enderror
                                 </div>
+                            </div>
 
+                            <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="name" class="mt-2"> Longitude <span class="text-danger">*</span></label>
                                     <input type="text" name="longitude" class="form-control @error('longitude') is-invalid @enderror" placeholder="Longitude" value="{{ old('longitude', isset($data) ? $data->longitude : '') }}" required>
                                     @error('longitude')
-                                        <span class="invalid-feedback form-invalid fw-bold" role="alert">
-                                            {{ $message }}
-                                        </span>
+                                    <span class="invalid-feedback form-invalid fw-bold" role="alert">
+                                        {{ $message }}
+                                    </span>
                                     @enderror
                                 </div>
-                            </div>
 
-                            <div class="form-check">
-                                <label class="form-check-label text-muted">
-                                    <input class="form-check-input is_driver" type="checkbox" name="driver" {{ old('driver') ? 'checked' : (isset($data) ? ($data->is_driver ? 'checked' : '' ) : '' ) }} value="1">
-                                    {{ __('Driver') }}
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label text-muted">
-                                    <input class="form-check-input is_vendor" type="checkbox" name="vendor" {{ old('vendor') ? 'checked' : (isset($data) ? ($data->is_vendor ? 'checked' : '' ) : '' ) }} value="1">
-                                    {{ __('Vendor') }}
-                                </label>
+                                <div class="form-group col-md-6 pt-5 {{ isset($data) ? 'mt-auto' : '' }}">
+                                    <div class="row">
+                                        <div class="form-group col-md-6 {{ isset($data) ? 'mb-0 mt-auto' : '' }}">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input is_driver" type="checkbox" name="driver" {{ old('driver') ? 'checked' : (isset($data) ? ($data->is_driver ? 'checked' : '' ) : '' ) }} value="1">
+                                                    {{ __('Driver') }}
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-6 {{ isset($data) ? 'mb-0 mt-auto' : '' }}">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input is_vendor" type="checkbox" name="vendor" {{ old('vendor') ? 'checked' : (isset($data) ? ($data->is_vendor ? 'checked' : '' ) : '' ) }} value="1">
+                                                    {{ __('Vendor') }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="driverInfoSection hide" id="driverInfoSection">

@@ -122,9 +122,16 @@
                                 </thead>
 
                                 @if(count($data)>0)
+                                    @php 
+                                        isset($_GET['items']) ? $items = $_GET['items'] : $items = 10;
+                                        isset($_GET['page']) ? $page = $_GET['page'] : $page = 1;
+
+                                        $i = (($page-1)*$items)+1; 
+                                    @endphp
+
                                     @foreach($data as $key => $value)
                                         <tr data-entry-id="{{ $value->id }}">
-                                            <td>{{ $value->id ?? ''}}</td>
+                                            <td>{{ $i++ ?? ''}}</td>
                                             <td>{{ $value->name ?? '' }}</td>
                                             <td>{{ $value->category->name ?? '' }}</td>
                                             <td>{{ $value->qty.' '.$value->qty_type ?? '-'}}</td>
