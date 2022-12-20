@@ -21,7 +21,7 @@
             <div class="col-lg-12">
                 <div class="row tabelhed d-flex justify-content-between">
                     <div class="col-lg-2 col-md-2 col-sm-2 d-flex">
-                            <a class="ad-btn btn text-center" href="{{ route('admin.user.create') }}"> Add</a>
+                            <a class="ad-btn btn text-center" href="{{ route('admin.users.create') }}"> Add</a>
                     </div>
 
                     <div class="col-lg-10 col-md-10"> 
@@ -52,7 +52,7 @@
                                     <i class="ti-search pl-3" aria-hidden="true"></i>
                                 </button>
 
-                                <a href="{{ route('admin.user.index') }}" class="btn-sm reload-btn">
+                                <a href="{{ route('admin.users.index') }}" class="btn-sm reload-btn">
                                     <i class="ti-reload pl-3 redirect-icon" aria-hidden="true"></i>
                                 </a>
                             </div>
@@ -121,18 +121,18 @@
                                                 @endif
                                             </td>
                                             <td class="text-center">
-                                                <span class="btn btn-xs {{ $value->status ? 'btn-success' : 'btn-danger' }} text-capitalize change-status" route="{{ route('admin.user.change-status', $value->id) }}">{{ $value->status ? 'Active' : 'In-Active' }}</span>
+                                                <span class="btn btn-xs {{ $value->status ? 'btn-success' : 'btn-danger' }} text-capitalize change-status" route="{{ route('admin.users.change-status', $value->id) }}">{{ $value->status ? 'Active' : 'In-Active' }}</span>
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ route('admin.user.show', $value->id) }}" class="btn btn-sm btn-icon p-2">
+                                                <a href="{{ route('admin.users.show', $value->id) }}" class="btn btn-sm btn-icon p-2">
                                                     <i class="mdi mdi-eye mx-1" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" title="View"></i>
                                                 </a>
             
-                                                <a href="{{ route('admin.user.edit', $value->id) }}" class="btn btn-sm btn-icon p-2">
+                                                <a href="{{ route('admin.users.edit', $value->id) }}" class="btn btn-sm btn-icon p-2">
                                                     <i class="mdi mdi-table-edit" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" title="Edit"></i>
                                                 </a>
 
-                                                <button type="submit" class="btn btn-sm btn-icon p-2 delete-record" route="{{ route('admin.user.destroy', $value->id) }}"><i class="mdi mdi-delete" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="Delete"></i></button> 
+                                                <button type="submit" class="btn btn-sm btn-icon p-2 delete-record" route="{{ route('admin.users.destroy', $value->id) }}"><i class="mdi mdi-delete" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="Delete"></i></button> 
 
                                             </td>
                                         </tr>

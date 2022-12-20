@@ -4,6 +4,8 @@ namespace App\Helper;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+use File;
 
 class Helper
 {
@@ -14,9 +16,14 @@ class Helper
         return strtoupper(substr(str_shuffle($str_result),0, 10));
     }
 
-    public static function storeImage($image, $destinationPath)
+    public static function storeImage($image, $destinationPath, $old_image = null)
     {
         try {
+            if(!empty($old_image)) {
+                if(File::exists($destinationPath.'/'.$old_image)) {
+                    unlink($destinationPath.'/'.$old_image);
+                }
+            }
             $file = $image;
             $name =time().'-'.$file->getClientOriginalName();
             $file->move($destinationPath, $name);
@@ -24,5 +31,42 @@ class Helper
         } catch (\Exception $e) {
             return 0;
         }
+    }
+
+    // public static function removeImage($destinationPath, $old_image = null)
+    // {
+    //     try {
+    //         if(!empty($old_image)) {
+    //             if(File::exists($destinationPath.'/'.$old_image)) {
+    //                 unlink($destinationPath.'/'.$old_image);
+    //             }
+    //         }
+    //         return 'Image Removed';
+    //     } catch (\Exception $e) {
+    //         return 0;
+    //     }
+    // }
+
+    public static function generateOtp()
+    {
+        return rand(1111,9999);
+    }
+
+    public static function Messages() {
+        $jsonString = file_get_contents(storage_path('json/message.json'));
+        $data = json_decode($jsonString, true);
+        return $data;
+    }
+
+    public static function Units() {
+        $units = [
+            'kg' => 'kg',
+            'grm' => 'grm',
+            'ltr' => 'ltr',
+            'ml' => 'ml',
+            'dozen' => 'dozen'
+        ];
+
+        return $units;
     }
 }

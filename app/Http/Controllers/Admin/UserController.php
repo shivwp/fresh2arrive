@@ -91,7 +91,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required | string',
             'email' => 'required | email | unique:users,email,'.$request->id,
-            'phone' => 'required | integer | unique:users,phone,'.$request->id,
+            'phone' => 'required | digits:10 | integer | unique:users,phone,'.$request->id,
             'profileImage' => 'mimes:jpeg,png,jpg',
             'location' => 'required | string',
             'latitude' => 'required | string',
@@ -234,52 +234,26 @@ class UserController extends Controller
 
             $data = array();
 
-            if(!empty($request->id)) {
-                for ($i=1; $i <= 7; $i++) { 
-                    $data[] = [
-                        'id' => $request->vendor_available_id[$i-1],
-                        'user_id' => $request->id,
-                        'week_day' => $i, 
-                        'start_time' => !empty($request->start_time[$i]) ? $request->start_time[$i] : '09:00', 
-                        'end_time' => !empty($request->end_time[$i]) ? $request->end_time[$i] : '17:00',
-                        'status' => isset($request->weekday[$i]) ? $request->weekday[$i] : 0,
-                    ];
-                }
-            }
-            else {
-                for ($i=1; $i <= 7; $i++) { 
-                    $data[] = [
-                        'user_id' => $userData->id,
-                        'week_day' => $i, 
-                        'start_time' => !empty($request->start_time[$i]) ? $request->start_time[$i] : '09:00', 
-                        'end_time' => !empty($request->end_time[$i]) ? $request->end_time[$i] : '17:00',
-                        'status' => isset($request->weekday[$i]) ? $request->weekday[$i] : 0,
-                    ];
-                }
-            }
             
-            // dd($data);
-            // VendorAvailability::insert($data);
-            // VendorAvailability::updateOrInsert(
-            //     [
-            //         'user_id' => $request->id,
-            //     ],
-            //     $data);
-
+            for ($i=1; $i <= 7; $i++) { 
+                $data[] = [
+                    'week_day' => $i, 
+                    'start_time' => !empty($request->start_time[$i]) ? $request->start_time[$i] : '09:00', 
+                    'end_time' => !empty($request->end_time[$i]) ? $request->end_time[$i] : '17:00',
+                    'status' => isset($request->weekday[$i]) ? $request->weekday[$i] : 0,
+                ]
+                + (!empty($request->id) ? ['user_id' => $request->id] : ['user_id' => $userData->id])
+                + (!empty($request->vendor_available_id) ? ['id' => $request->vendor_available_id[$i-1]] : []);
+            }
 
             VendorAvailability::upsert($data, ['id','user_id','week_day'],['start_time','end_time','status']);
-            //     $data,
-            //     ['user_id','week_day'],
-            // );
-
-            // DB::table('vendor_availabilities')
-            
+  
         }
         if(!empty($request->id)) {
-            return redirect()->route('admin.user.index')->with('success', "User Updated Successfully!");
+            return redirect()->route('admin.users.index')->with('success', "User Updated Successfully!");
         }
         else {
-            return redirect()->route('admin.user.index')->with('success', "User Created Successfully!");
+            return redirect()->route('admin.users.index')->with('success', "User Created Successfully!");
         }
     }
 
@@ -357,7 +331,7 @@ class UserController extends Controller
             if($data) {
                 $data->status = $data->status == 1 ? 0 : 1;
                 $data->save();
-                return response()->json(["success" => true, "userStatus"=> $data->status]);
+                return response()->json(["success" => true, "status"=> $data->status]);
             }
             else {
                 return response()->json(["success" => false]);

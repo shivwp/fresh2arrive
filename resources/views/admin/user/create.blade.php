@@ -23,7 +23,7 @@
                         Create User
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data" id="basic-form">
+                        <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data" id="basic-form">
                             @csrf
                             <input type="hidden" name="id" id="id" value="{{ isset($data) ? $data->id : '' }}">
                             <input type="hidden" name="driver_id" id="driver_id" value="{{ (isset($data) && isset($data->driver)) ? $data->driver->id : '' }}">
@@ -55,7 +55,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="name" class="mt-2"> Phone <span class="text-danger">*</span></label>
-                                    <input type="number" name="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Phone" value="{{ old('phone', isset($data) ? $data->phone : '') }}" min="0" maxlength="10" required>
+                                    <input type="number" name="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Phone" value="{{ old('phone', isset($data) ? $data->phone : '') }}" min="0" minlength="10" maxlength="10" required>
                                     @error('phone')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">
                                             {{ $message }}
@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Password <span class="text-danger">*</span> <i class="mdi mdi-information-outline" data-toggle="tooltip" data-placement="right" title="Password must contain atleast one Lower case letter, atleast one Upper case letter, atleast one Number and atleast one Special character."></i></label>
+                                    <label for="name" class="mt-2"> Password  <span class="text-danger">{{ isset($data) && isset($data->id) ? '' : '*' }}</span> <i class="mdi mdi-information-outline" data-toggle="tooltip" data-placement="right" title="Password must contain atleast one Lower case letter, atleast one Upper case letter, atleast one Number and atleast one Special character."></i></label>
                                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" minlength="8" {{ isset($data) ? '' : 'required' }}>
                                     @error('password')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">
@@ -608,14 +608,14 @@
     
 $(document).ready(function(){
     
-    $(document).on('click', 'input', function(){
+    // $(document).on('click', 'input', function(){
 
-        $(this).next('span.invalid-feedback.form-invalid').css('display','none');
-        console.log($(this).next('span.invalid-feedback.form-invalid'));
+    //     $(this).next('span.invalid-feedback.form-invalid').css('display','none');
+    //     console.log($(this).next('span.invalid-feedback.form-invalid'));
 
-        // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
-        // console.log($(this).closest('span.invalid-feedback.form-invalid'));
-    });
+    //     // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
+    //     // console.log($(this).closest('span.invalid-feedback.form-invalid'));
+    // });
 
     $(document).on("change",".is_driver", function(){
 

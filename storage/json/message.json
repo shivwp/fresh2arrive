@@ -1,0 +1,12 @@
+{
+    "USER_LOGIN":"User Logged in Successfully!",
+    "NO_USER":"User Not Found",
+    "OTP_SENT":"OTP Sent Successfully!",
+    "RESEND_OTP":"Resend OTP Successfully!",
+    "INVALID_OTP":"In-valid Otp, please try again!",
+    "OTP_EXPIRE":"Your OTP is Expired, Please Resend OTP",
+    "CODE_INVALID":"In-valid Referal Code",
+    "USER_VERIFIED":"User Verified Successfully",
+    "LOG_OUT":"Logout Successfully!",
+    "LOGIN":"Please Login!"
+}

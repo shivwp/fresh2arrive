@@ -5,12 +5,15 @@
                 <span class="icon-menu"></span>
             </button>
         </div>
+        @php
+            $data = App\Models\Setting::pluck('value','key');
+        @endphp
         <div>
             <a class="navbar-brand brand-logo" href="{{ route('admin.dashboard') }}">
-                <img src="/uploads/logo/logo.png" alt="logo" />
+                <img src="{{ url(config('app.logo')).'/'.$data['logo_1'] }}" alt="logo" />
             </a>
             <a class="navbar-brand brand-logo-mini" href="{{ route('admin.dashboard') }}">
-                <img src="/admin/images/logo-mini.svg" alt="logo" />
+                <img src="{{ url(config('app.logo')).'/'.$data['logo_2'] }}" alt="logo" />
             </a>
         </div>
     </div>

@@ -70,6 +70,8 @@
 <script src="{{ asset('js/custom.js') }}"></script>
 <!-- Custom js End -->
 
+<script src="{{ asset('admin/assets/js/ckeditor/ckeditor.js') }}" type="text/javascript"></script>
+
 @yield('scripts')
 
 </body>

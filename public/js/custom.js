@@ -1,5 +1,23 @@
 $(document).ready(function(){
     
+    $(document).on('click', 'input', function(){
+
+        $(this).next('span.invalid-feedback.form-invalid').css('display','none');
+        // console.log($(this).next('span.invalid-feedback.form-invalid'));
+
+        // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
+        // console.log($(this).closest('span.invalid-feedback.form-invalid'));
+    });
+
+    $(document).on('click', 'select', function(){
+
+        $(this).next('span.invalid-feedback.form-invalid').css('display','none');
+        // console.log($(this).next('span.invalid-feedback.form-invalid'));
+
+        // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
+        // console.log($(this).closest('span.invalid-feedback.form-invalid'));
+    });
+
     // setTimeout(function() {
     //     $('.invalid-feedback.form-invalid').addClass('d-none');
     // },5000);
@@ -74,162 +92,186 @@ $(document).ready(function(){
 
     // script for filter based on status start
     $(document).on('change', '#status', function(){
-        var status = $(this).val();
-        var role = $('#role').val();
-        var keyword = $('#keyword').val();
-        var items = $('#items').val();
-
-        if(items == 10)
-        {
-            items = '';
-        }
-
-        if(role && keyword && items)
-        {
-            window.location.href = '?role='+role+'&status='+status+'&keyword='+keyword+'&items='+items;
-        }
-
-        else if(role && keyword)
-        {
-            window.location.href = '?role='+role+'&status='+status+'&keyword='+keyword;
-        }
-
-        else if(keyword && items)
-        {
-            window.location.href = '?status='+status+'&keyword='+keyword+'&items='+items;
-        }
-
-        else if(role && items)
-        {
-            window.location.href = '?role='+role+'&status='+status+'&items='+items;
-        }
-
-        else if(role)
-        {
-            window.location.href = '?role='+role+'&status='+status;
-        }
-
-        else if(keyword)
-        {
-            window.location.href = '?status='+status+'&keyword='+keyword;
-        }
-
-        else if(items)
-        {
-            window.location.href = '?status='+status+'&items='+items;
-        }
-
-        else
-        {
-            window.location.href = '?status='+status;
-        }
-
+        $(this).closest('form').submit();
     });
     // script for filter based on status end
 
-    // script for search start
-    $(document).on('click', '.keyword-btn', function(){
-        var keyword = $('#keyword').val()
-        var role = $('#role').val();
-        var status = $('#status').val();
-        var items = $('#items').val();
-        // console.log(keyword);
-        if(items == 10)
-        {
-            items = '';
-        }
-
-        if(role && status && items)
-        {
-            window.location.href = '?role='+role+'&status='+status+'&keyword='+keyword+'&items='+items;
-        }
-
-        else if(role && status)
-        {
-            window.location.href = '?role='+role+'&status='+status+'&keyword='+keyword;
-        }
-
-        else if(status && items)
-        {
-            window.location.href = '?status='+status+'&keyword='+keyword+'&items='+items;
-        }
-
-        else if(role && items)
-        {
-            window.location.href = '?role='+role+'&keyword='+keyword+'&items='+items;
-        }
-
-        else if(role)
-        {
-            window.location.href = '?role='+role+'&keyword='+keyword;
-        }
-
-        else if(status)
-        {
-            window.location.href = '?status='+status+'&keyword='+keyword;
-        }
-
-        else if(items)
-        {
-            window.location.href = '?keyword='+keyword+'&items='+items;
-        }
-
-        else
-        {
-            window.location.href = '?keyword='+keyword;
-        }
-
+    // script for total items per page start
+    $(document).on('change', '#items', function(){
+        $(this).closest('form').submit();
     });
+    // script for total items per page end
+
+    // script for filter based on role start
+    $(document).on('change', '#items', function(){
+        $(this).closest('form').submit();
+    });
+    // script for filter based on role end
+
+    // script for filter based on category start
+    $(document).on('change', '#category', function(){
+        $(this).closest('form').submit();
+    });
+    // script for filter based on category end
+
+    // script for filter based on status start
+    // $(document).on('change', '#status', function(){
+    //     var status = $(this).val();
+    //     var role = $('#role').val();
+    //     var keyword = $('#keyword').val();
+    //     var items = $('#items').val();
+
+    //     if(items == 10)
+    //     {
+    //         items = '';
+    //     }
+
+    //     if(role && keyword && items)
+    //     {
+    //         window.location.href = '?role='+role+'&status='+status+'&keyword='+keyword+'&items='+items;
+    //     }
+
+    //     else if(role && keyword)
+    //     {
+    //         window.location.href = '?role='+role+'&status='+status+'&keyword='+keyword;
+    //     }
+
+    //     else if(keyword && items)
+    //     {
+    //         window.location.href = '?status='+status+'&keyword='+keyword+'&items='+items;
+    //     }
+
+    //     else if(role && items)
+    //     {
+    //         window.location.href = '?role='+role+'&status='+status+'&items='+items;
+    //     }
+
+    //     else if(role)
+    //     {
+    //         window.location.href = '?role='+role+'&status='+status;
+    //     }
+
+    //     else if(keyword)
+    //     {
+    //         window.location.href = '?status='+status+'&keyword='+keyword;
+    //     }
+
+    //     else if(items)
+    //     {
+    //         window.location.href = '?status='+status+'&items='+items;
+    //     }
+
+    //     else
+    //     {
+    //         window.location.href = '?status='+status;
+    //     }
+
+    // });
+    // script for filter based on status end
+
+    // script for search start
+    // $(document).on('click', '.keyword-btn', function(){
+    //     var keyword = $('#keyword').val()
+    //     var role = $('#role').val();
+    //     var status = $('#status').val();
+    //     var items = $('#items').val();
+    //     // console.log(keyword);
+    //     if(items == 10)
+    //     {
+    //         items = '';
+    //     }
+
+    //     if(role && status && items)
+    //     {
+    //         window.location.href = '?role='+role+'&status='+status+'&keyword='+keyword+'&items='+items;
+    //     }
+
+    //     else if(role && status)
+    //     {
+    //         window.location.href = '?role='+role+'&status='+status+'&keyword='+keyword;
+    //     }
+
+    //     else if(status && items)
+    //     {
+    //         window.location.href = '?status='+status+'&keyword='+keyword+'&items='+items;
+    //     }
+
+    //     else if(role && items)
+    //     {
+    //         window.location.href = '?role='+role+'&keyword='+keyword+'&items='+items;
+    //     }
+
+    //     else if(role)
+    //     {
+    //         window.location.href = '?role='+role+'&keyword='+keyword;
+    //     }
+
+    //     else if(status)
+    //     {
+    //         window.location.href = '?status='+status+'&keyword='+keyword;
+    //     }
+
+    //     else if(items)
+    //     {
+    //         window.location.href = '?keyword='+keyword+'&items='+items;
+    //     }
+
+    //     else
+    //     {
+    //         window.location.href = '?keyword='+keyword;
+    //     }
+
+    // });
     // script for search end
 
     // script for total items per page start
 
-    $(document).on('change', '#items', function(){
-        var items = $(this).val();
-        var role = $('#role').val();
-        var status = $('#status').val();
-        var keyword = $('#keyword').val();
+    // $(document).on('change', '#items', function(){
+    //     var items = $(this).val();
+    //     var role = $('#role').val();
+    //     var status = $('#status').val();
+    //     var keyword = $('#keyword').val();
 
-        if(role && status && keyword)
-        {
-            window.location.href = '?role='+role+'&status='+status+'&keyword='+keyword+'&items='+items;
-        }
+    //     if(role && status && keyword)
+    //     {
+    //         window.location.href = '?role='+role+'&status='+status+'&keyword='+keyword+'&items='+items;
+    //     }
 
-        else if(role && status)
-        {
-            window.location.href = '?role='+role+'&status='+status+'&items='+items;
-        }
+    //     else if(role && status)
+    //     {
+    //         window.location.href = '?role='+role+'&status='+status+'&items='+items;
+    //     }
 
-        else if(status && keyword)
-        {
-            window.location.href = '?status='+status+'&keyword='+keyword+'&items='+items;
-        }
+    //     else if(status && keyword)
+    //     {
+    //         window.location.href = '?status='+status+'&keyword='+keyword+'&items='+items;
+    //     }
 
-        else if(role && keyword)
-        {
-            window.location.href = '?role='+role+'&keyword='+keyword+'&items='+items;
-        }
+    //     else if(role && keyword)
+    //     {
+    //         window.location.href = '?role='+role+'&keyword='+keyword+'&items='+items;
+    //     }
 
-        else if(role)
-        {
-            window.location.href = '?role='+role+'&items='+items;
-        }
+    //     else if(role)
+    //     {
+    //         window.location.href = '?role='+role+'&items='+items;
+    //     }
 
-        else if(status)
-        {
-            window.location.href = '?status='+status+'&items='+items;
-        }
+    //     else if(status)
+    //     {
+    //         window.location.href = '?status='+status+'&items='+items;
+    //     }
 
-        else if(keyword)
-        {
-            window.location.href = '?keyword='+keyword+'&items='+items;
-        }
+    //     else if(keyword)
+    //     {
+    //         window.location.href = '?keyword='+keyword+'&items='+items;
+    //     }
 
-        else
-        {
-            window.location.href = '?items='+items;
-        }
-    });
+    //     else
+    //     {
+    //         window.location.href = '?items='+items;
+    //     }
+    // });
     // script for total items per page end
 
     // script for change status using ajax start
@@ -243,7 +285,7 @@ $(document).ready(function(){
             url: route,
             success: function(response){
                 if(response.success == true ) {
-                    if(response.userStatus == true ) {
+                    if(response.status == true ) {
                         $this.html('Active');
                         $this.addClass('btn-success').removeClass('btn-danger');
                     }
@@ -317,4 +359,5 @@ $(document).ready(function(){
         });
     });
     // script for delete alert popup end
+
 });
