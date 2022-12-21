@@ -78,6 +78,7 @@ class UserController extends Controller
     public function create()
     {
         $data['week_arr'] = ['1' => 'Monday', '2' => 'Tuesday', '3' => 'Wednesday', '4' => 'Thursday', '5' => 'Friday', '6' => 'Saturday', '7' => 'Sunday']; 
+        $data['range'] = Helper::DeliveryRange();
 
         return view('admin.user.create',$data);
     }
@@ -283,7 +284,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $data['data'] = User::where('id',$id)->with('driver','vendor','vendor_availability')->first();
-        // dd($data['data']);
+        $data['range'] = Helper::DeliveryRange();
         $data['week_arr'] = ['1' => 'Monday', '2' => 'Tuesday', '3' => 'Wednesday', '4' => 'Thursday', '5' => 'Friday', '6' => 'Saturday', '7' => 'Sunday']; 
 
         return view('admin.user.create',$data);

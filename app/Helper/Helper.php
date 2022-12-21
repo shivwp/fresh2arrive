@@ -59,14 +59,27 @@ class Helper
     }
 
     public static function Units() {
-        $units = [
+        return $units = [
             'kg' => 'kg',
             'grm' => 'grm',
             'ltr' => 'ltr',
             'ml' => 'ml',
             'dozen' => 'dozen'
         ];
+    }
 
-        return $units;
+    public static function DeliveryRange() {
+        return $range = [
+            '5' => '5 km',
+            '10' => '10 km',
+            '15' => '15 km',
+            '20' => '20 km',
+            '25' => '25 km',
+            '30' => '30 km',
+            '35' => '35 km',
+            '40' => '40 km',
+            '45' => '45 km',
+            '50' => '50 km',
+        ];
     }
 }

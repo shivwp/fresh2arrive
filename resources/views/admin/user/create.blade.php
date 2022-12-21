@@ -471,8 +471,9 @@
                                                 <label class="mt-2"> Delivery Range <span class="text-danger">*</span></label>
                                                 <select name="deliveryRange" class="form-control is_required form-select @error('deliveryRange') is-invalid @enderror">
                                                     <option value="" {{ old('deliveryRange') ? ((old('deliveryRange') == '') ? 'selected' : '' ) : ( (isset($data) && $data->delivery_range == 0) ? 'selected' : '' ) }} >Select Range</option>
-                                                    <option value="5" {{ old('deliveryRange') ? ((old('deliveryRange') == 5) ? 'selected' : '' ) : ( (isset($data) && $data->delivery_range == 5) ? 'selected' : '' ) }} >5 km</option>
-                                                    <option value="10" {{ old('deliveryRange') ? ((old('deliveryRange') == 10) ? 'selected' : '' ) : ( (isset($data) && $data->delivery_range == 10) ? 'selected' : '' ) }} >10 km</option>
+                                                    @foreach($range as $key => $value) 
+                                                        <option value={{$key}} {{ old('deliveryRange') ? ((old('deliveryRange') == $key) ? 'selected' : '' ) : ( (isset($data) && $data->delivery_range == $key) ? 'selected' : '' ) }} >{{ $value }}</option>
+                                                    @endforeach
                                                 </select>
                                                 @error('deliveryRange')
                                                     <span class="invalid-feedback form-invalid fw-bold" role="alert">
