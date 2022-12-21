@@ -28,18 +28,42 @@
                             <input type="hidden" name="id" id="id" value="{{ isset($data) ? $data->id : '' }}">
                             <!-- <input type="hidden" name="slug" id="slug" value="{{ isset($data) ? $data->slug : '' }}"> -->
                             
-                            <div class="form-group">
-                                <label for="name" class="mt-2"> Title <span class="text-danger">*</span></label>
-                                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Title" value="{{ old('title', isset($data) ? $data->name : '') }}" required>
-                                @error('title')
-                                    <span class="invalid-feedback form-invalid fw-bold" role="alert">
-                                        {{ $message }}
-                                    </span>
-                                @enderror
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="mt-2"> Category <span class="text-danger">*</span></label>
+                                    <select name="category" class="form-control form-select @error('category') is-invalid @enderror" required>
+                                        <option value="" {{ old('category') ? ((old('category') == '') ? 'selected' : '' ) : ( (isset($data) && $data->category_id == 0) ? 'selected' : '' ) }} >Select Category</option>
+                                        @foreach($categories as $key => $value) 
+                                            <option value={{$key}} {{ old('category') ? ((old('category') == $key) ? 'selected' : '' ) : ( (isset($data) && $data->category_id == $key) ? 'selected' : '' ) }} >{{ $value }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category')
+                                        <span class="invalid-feedback form-invalid fw-bold" role="alert">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="name" class="mt-2"> Title <span class="text-danger">*</span></label>
+                                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Title" value="{{ old('title', isset($data) ? $data->name : '') }}" required>
+                                    @error('title')
+                                        <span class="invalid-feedback form-invalid fw-bold" role="alert">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
 
                             <div class="row">
-                                <div class="form-group {{ isset($data) ? 'col-md-6' : '' }} ">
+                                <div class="form-group col-md-6">
+                                    @if(!empty($data->image))
+                                        <div class="mt-3">
+                                            <span class="pip" data-title="{{$data->image}}">
+                                                <img src="{{ url(config('app.product_image')).'/'.$data->image ?? '' }}" alt="" width="150" height="100">
+                                            </span>
+                                        </div>
+                                    @endif
                                     <label for="name" class="mt-2"> Image <span class="text-danger">*</span> <span class="text-danger info">(Only jpeg, png, jpg files allowed)</span></label>
                                     <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/jpeg,image/png" {{ isset($data) && isset($data->id) ? '' : 'required' }}>
                                     <input type="hidden" class="form-control" name="imageOld" value="{{ isset($data) ? $data->image : ''}}">
@@ -49,19 +73,19 @@
                                         </span>
                                     @enderror
                                 </div>
-
-                                @if(!empty($data->image))
-                                    <div class="form-group col-md-6">
-                                        <div class="mt-3">
-                                            <span class="pip" data-title="{{$data->image}}">
-                                                <img src="{{ url(config('app.product_image')).'/'.$data->image ?? '' }}" alt="" width="150" height="100">
-                                            </span>
-                                        </div>
-                                    </div>
-                                @endif
+                                
+                                <div class="form-group col-md-6 mt-auto">
+                                    <label for="name" class="mt-2"> SKU <span class="text-danger">*</span></label>
+                                    <input type="text" name="SKU" class="form-control @error('SKU') is-invalid @enderror" placeholder="SKU" value="{{ old('SKU', isset($data) && isset($data->SKU) ? $data->SKU : '') }}" required>
+                                    @error('SKU')
+                                        <span class="invalid-feedback form-invalid fw-bold" role="alert">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
 
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="mt-2"> Category <span class="text-danger">*</span></label>
                                     <select name="category" class="form-control form-select @error('category') is-invalid @enderror" required>
@@ -85,7 +109,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="row">
                                 <div class="form-group col-md-6">
@@ -115,14 +139,37 @@
 
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Price <span class="text-danger">*</span></label>
-                                    <input type="number" name="price" class="form-control @error('price') is-invalid @enderror" placeholder="Price" value="{{ old('price', isset($data) && isset($data->price) ? $data->price : '') }}" required min="0" max="9999.99" step="0.01">
-                                    @error('price')
+                                    <label for="name" class="mt-2"> Market Price <span class="text-danger">*</span></label>
+                                    <input type="number" name="market_price" class="form-control @error('market_price') is-invalid @enderror" placeholder="Market Price" value="{{ old('market_price', isset($data) && isset($data->market_price) ? $data->market_price : '') }}" required min="0" max="9999.99" step="0.01">
+                                    @error('market_price')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">
                                             {{ $message }}
                                         </span>
                                     @enderror
                                 </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="name" class="mt-2"> Regular Price <span class="text-danger">*</span></label>
+                                    <input type="number" name="regular_price" class="form-control @error('regular_price') is-invalid @enderror" placeholder="Regular Price" value="{{ old('regular_price', isset($data) && isset($data->regular_price) ? $data->regular_price : '') }}" required min="0" max="9999.99" step="0.01">
+                                    @error('regular_price')
+                                        <span class="invalid-feedback form-invalid fw-bold" role="alert">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="mt-2"> Content </label>
+                                <textarea name="content" class="ckeditor @error('content') is-invalid @enderror" id="ckeditor">{{ empty(old('content')) ? (isset($data) ? $data->content : '') : old('content') }}</textarea>
+                                @error('content')
+                                    <span class="invalid-feedback form-invalid fw-bold" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="mt-2"> Status <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control form-select @error('status') is-invalid @enderror" required>

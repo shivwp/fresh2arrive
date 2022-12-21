@@ -115,7 +115,8 @@
                                         <th>Title</th>
                                         <th>Category</th>
                                         <th>Quantity</th>
-                                        <th>Price</th>
+                                        <th>Market Price</th>
+                                        <th>Regular Price</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -135,7 +136,8 @@
                                             <td>{{ $value->name ?? '' }}</td>
                                             <td>{{ $value->category->name ?? '' }}</td>
                                             <td>{{ $value->qty.' '.$value->qty_type ?? '-'}}</td>
-                                            <td>{{ number_format((float)$value->price, 2, '.', '') }}</td>
+                                            <td>{{ number_format((float)$value->market_price, 2, '.', '') }}</td>
+                                            <td>{{ number_format((float)$value->regular_price, 2, '.', '') }}</td>
                                             <td class="text-center">
                                                 <span class="btn btn-xs {{ $value->status ? 'btn-success' : 'btn-danger' }} text-capitalize change-status" route="{{ route('admin.products.change-status', $value->id) }}">{{ $value->status ? 'Active' : 'In-Active' }}</span>
                                             </td>

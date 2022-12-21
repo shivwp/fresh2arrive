@@ -47,8 +47,15 @@
 
                                 <div class="col-md-4">
                                     <div class="p-3 listViewclr">
-                                        <h6 class="fw-bolder">Price</h6>
-                                        <p class="mb-0">{{ number_format((float)$data->price, 2, '.', '') }}</p>
+                                        <h6 class="fw-bolder">Market Price</h6>
+                                        <p class="mb-0">{{ number_format((float)$data->market_price, 2, '.', '') }}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="p-3 listViewclr">
+                                        <h6 class="fw-bolder">Regular Price</h6>
+                                        <p class="mb-0">{{ number_format((float)$data->regular_price, 2, '.', '') }}</p>
                                     </div>
                                 </div>
 
@@ -56,6 +63,13 @@
                                     <div class="p-3 listViewclr">  
                                         <h6 class="fw-bolder">Status</h6>
                                         <p class="mb-0">{{ isset($data) && ($data->status == 1) ? 'Active' : 'In-Active'}}</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-8">
+                                    <div class="p-3 listViewclr">  
+                                        <h6 class="fw-bolder">Content</h6>
+                                        <p class="mb-0">{!! $data->content ?? '-' !!}</p>
                                     </div>
                                 </div>
 

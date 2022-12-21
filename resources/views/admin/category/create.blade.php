@@ -66,7 +66,7 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label for="name" class="mt-2"> Tax (%)<span class="text-danger">*</span></label>
-                                    <input type="text" name="tax_percent" class="form-control @error('tax_percent') is-invalid @enderror" placeholder="Tax (%)" value="{{ old('tax_percent', isset($data) ? $data->tax_percent : (isset($tax) ? $tax->value : '')) }}" required>
+                                    <input type="number" name="tax_percent" class="form-control @error('tax_percent') is-invalid @enderror" placeholder="Tax (%)" value="{{ old('tax_percent', isset($data) ? $data->tax_percent : (isset($tax) ? $tax->value : '')) }}" required>
                                     @error('tax_percent')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">
                                             {{ $message }}

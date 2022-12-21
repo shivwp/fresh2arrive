@@ -82,7 +82,8 @@ class ProductController extends Controller
                 'SKU' => 'required | unique:products,SKU,'.$request->id,
                 'qty' => 'required | numeric',
                 'qty_type' => 'required',
-                'price' => 'required | numeric',
+                'market_price' => 'required | numeric',
+                'regular_price' => 'required | numeric',
                 'status' => 'required',
             ] + (!empty($request->id) ? ['image' => 'mimes:jpeg,png,jpg'] : ['image' => 'required | mimes:jpeg,png,jpg'])
         );
@@ -96,10 +97,12 @@ class ProductController extends Controller
             [
                 'name' => $request->title,
                 'category_id' => $request->category,
-                'SKU' => $request->SKU,
+                'SKU' => strtoupper($request->SKU),
                 'qty' => $request->qty,
                 'qty_type' => $request->qty_type,
-                'price' => $request->price,
+                'market_price' => $request->market_price,
+                'regular_price' => $request->regular_price,
+                'content' => $request->content,
                 'image' => $request->hasfile('image') ? Helper::storeImage($request->file('image'),$imagePath,$request->imageOld) : (isset($request->imageOld) ? $request->imageOld : ''),
                 'status' => $request->status,
             ]
