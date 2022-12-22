@@ -98,3 +98,9 @@ li.page-item {
   .form-check .form-check-label {
     display: inline-block;
   }
+  .show-img {
+    display: block;
+  }
+  .hide-img {
+    display: none;
+  }

@@ -27,4 +27,13 @@ class Product extends Model
     public function Category() {
         return $this->hasOne(Category::class, 'id','category_id');
     }
+
+    public static function getProductsByCategoryId($category_id = null) {
+        return static::where('category_id', $category_id)->get();
+    }
+
+    public static function getProductDetailsByID($id = null) {
+        return static::where('id', $id)->first();
+    }
+
 }

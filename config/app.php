@@ -238,4 +238,5 @@ return [
     'logo' => env('LOGO'),
     'category_image' => env('CATEGORY_IMAGE'),
     'product_image' => env('PRODUCT_IMAGE'),
+    'app.vendor_product_image' => env('VENDOR_PRODUCT_IMAGE'),
 ];

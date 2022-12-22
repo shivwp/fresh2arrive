@@ -15,10 +15,31 @@ class VendorProduct extends Model
     protected $fillable = [
         'vendor_id',
         'category_id',
+        'product_id',
         'SKU',
         'name',
         'image',
         'status',
     ];
+
+    public function vendor() {
+        return $this->hasOne(User::class, 'id', 'vendor_id');
+    }
+
+    public function category() {
+        return $this->hasMany(Category::class, 'id', 'category_id');
+    }
+
+    public function product() {
+        return $this->hasMany(Product::class, 'id', 'product_id');
+    }
+
+    // public function getProductByCategoryId() {
+    //     return $this->hasOne(Product::class, 'category_id', 'category_id');
+    // }
+
+    public function variants() {
+        return $this->hasMany(VendorProductVariant::class, 'vendor_product_id', 'id');
+    }
     
 }

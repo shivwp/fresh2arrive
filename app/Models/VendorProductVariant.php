@@ -15,4 +15,5 @@ class VendorProductVariant extends Model
         'variant_qty',
         'price',
     ];
+
 }

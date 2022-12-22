@@ -20,22 +20,28 @@
 			</div>
 		</li>
 
-		<li class="nav-item {{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*'))) ? 'active' : '' }}">
-			<a class="nav-link" data-bs-toggle="collapse" href="#master" aria-expanded="{{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*'))) ? 'true' : 'false' }}" aria-controls="master">
+		<li class="nav-item {{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*')) || (request()->is('admin/vendor-products*'))) ? 'active' : '' }}">
+			<a class="nav-link" data-bs-toggle="collapse" href="#master" aria-expanded="{{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*')) || (request()->is('admin/vendor-products*'))) ? 'true' : 'false' }}" aria-controls="master">
 				<i class="menu-icon mdi mdi-database"></i>
 				<span class="menu-title">Master Entries</span>
 				<i class="menu-arrow"></i>
 			</a>
-			<div class="collapse {{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*'))) ? 'show' : '' }}" id="master">
+			<div class="collapse {{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*')) || (request()->is('admin/vendor-products*'))) ? 'show' : '' }}" id="master">
 				<ul class="nav flex-column sub-menu">
 					<li class="nav-item">
 						<a class="nav-link {{ request()->is('admin/pages*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}"> Pages </a>
 					</li>
+
 					<li class="nav-item">
 						<a class="nav-link {{ request()->is('admin/categories*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}"> Categories </a>
 					</li>
+
 					<li class="nav-item">
 						<a class="nav-link {{ request()->is('admin/products*') ? 'active' : '' }}" href="{{ route('admin.products.index') }}"> Products </a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link {{ request()->is('admin/vendor-products*') ? 'active' : '' }}" href="{{ route('admin.vendor-products.index') }}"> Vendor Products </a>
 					</li>
 				</ul>
 			</div>
