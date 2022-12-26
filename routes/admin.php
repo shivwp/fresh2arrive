@@ -9,7 +9,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\VendorProductController;
-// use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\CouponController;
 
 Auth::routes();
 
@@ -32,5 +32,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::GET('vendor-products/change-status/{id}', [VendorProductController::class, 'changeStatus'])->name('vendor-products.change-status');
     Route::GET('vendor-products/products/{category_id}', [VendorProductController::class, 'getProductsByCategory'])->name('vendor-products.products');
     Route::GET('vendor-products/products-details/{product_id}', [VendorProductController::class, 'getProductsById'])->name('vendor-products.products-details');
-    // Route::RESOURCE('coupons', CouponController::class);
+    Route::RESOURCE('coupons', CouponController::class);
+    Route::GET('coupons/change-status/{id}', [CouponController::class, 'changeStatus'])->name('coupons.change-status');
 });
