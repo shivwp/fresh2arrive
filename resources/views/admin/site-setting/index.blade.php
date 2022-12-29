@@ -23,7 +23,7 @@
                         Site Setting
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.setting.store') }}" method="POST" enctype="multipart/form-data" id="basic-form">
+                        <form action="{{ route('admin.site-setting.store') }}" method="POST" enctype="multipart/form-data" id="basic-form">
                             @csrf
 
                             <div class="row">

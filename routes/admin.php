@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\AppSettingController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -22,7 +23,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::RESOURCE('banks', BankController::class);
     Route::RESOURCE('users', UserController::class);
     Route::GET('users/change-status/{id}', [UserController::class, 'changeStatus'])->name('users.change-status');
-    Route::RESOURCE('setting', SettingController::class);
+    Route::RESOURCE('site-setting', SettingController::class);
+    Route::RESOURCE('app-setting', AppSettingController::class);
     Route::RESOURCE('pages', PageController::class);
     Route::RESOURCE('categories', CategoryController::class);
     Route::GET('categories/change-status/{id}', [CategoryController::class, 'changeStatus'])->name('categories.change-status');

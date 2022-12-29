@@ -64,12 +64,31 @@
 			</div>
 		</li>
 
-		<li class="nav-item">
-			<a class="nav-link" href="{{ route('admin.setting.index') }}">
+		<li class="nav-item {{ ((request()->is('admin/site-setting*')) || (request()->is('admin/app-setting*'))) ? 'active' : '' }}">
+			<a class="nav-link" data-bs-toggle="collapse" href="#setting" aria-expanded="{{ ((request()->is('admin/site-setting*')) || (request()->is('admin/app-setting*'))) ? 'true' : 'false' }}" aria-controls="setting">
+				<i class="mdi mdi-settings menu-icon"></i>
+				<span class="menu-title">Settings</span>
+				<i class="menu-arrow"></i>
+			</a>
+			<div class="collapse {{ ((request()->is('admin/site-setting*')) || (request()->is('admin/app-setting*'))) ? 'show' : '' }}" id="setting">
+				<ul class="nav flex-column sub-menu">
+					<li class="nav-item">
+						<a class="nav-link {{ request()->is('admin/site-setting*') ? 'active' : '' }}" href="{{ route('admin.site-setting.index') }}"> Site Setting </a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link {{ request()->is('admin/app-setting*') ? 'active' : '' }}" href="{{ route('admin.app-setting.index') }}"> App Setting </a>
+					</li>
+				</ul>
+			</div>
+		</li>
+
+		<!-- <li class="nav-item">
+			<a class="nav-link" href="{{ route('admin.site-setting.index') }}">
 				<i class="mdi mdi-settings menu-icon"></i>
 				<span class="menu-title">Setting</span>
 			</a>
-		</li>
+		</li> -->
 
 		<!-- <li class="nav-item {{ request()->is('admin/pages*') ? 'active' : '' }}">
 			<a class="nav-link" href="{{ route('admin.pages.index') }}">

@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Setting;
-use App\Helper\Helper;
 
-class SettingController extends Controller
+class AppSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +17,7 @@ class SettingController extends Controller
     {
         $data['data'] = Setting::pluck('value','key');
 
-        return view('admin.site-setting.index',$data);
+        return view('admin.app-setting.index',$data);
     }
 
     /**
@@ -40,30 +39,15 @@ class SettingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'admin_commission_type' => 'required',
-            'admin_commission' => 'required',
-            'referal_amount' => 'required',
-            'default_tax' => 'required',
-            'surcharge' => 'required',
-            'packing_charge' => 'required',
-            'delivery_charge_till' => 'required',
-            'delivery_charge_per_km' => 'required',
+            'app_version' => 'required',
+            'maintenance_mode' => 'required',
+            'force_update' => 'required',
         ]);
         
-        $imagePath = config('app.logo');
-
         $data[] = [
-            'logo_1' => $request->hasfile('logo_1') ? Helper::storeImage($request->file('logo_1'),$imagePath) : (isset($request->logo_1_old) ? $request->logo_1_old : ''),
-            'logo_2' => $request->hasfile('logo_2') ? Helper::storeImage($request->file('logo_2'),$imagePath) : (isset($request->logo_2_old) ? $request->logo_2_old : ''),
-            'admin_commission_type' => $request->admin_commission_type,
-            'admin_commission' => $request->admin_commission,
-            'referal_amount' => $request->referal_amount,
-            'default_tax' => $request->default_tax,
-            'surcharge' => $request->surcharge,
-            'packing_charge' => $request->packing_charge,
-            'delivery_charge_till' => $request->delivery_charge_till,
-            'delivery_charge_per_km' => $request->delivery_charge_per_km,
-            'tip_is_tax_free' => $request->tip_is_tax_free ? $request->tip_is_tax_free : 0,
+            'app_version' => $request->app_version,
+            'maintenance_mode' => $request->maintenance_mode,
+            'force_update' => $request->force_update,
         ];
 
         foreach ($data[0] as $key => $value) {
@@ -77,7 +61,7 @@ class SettingController extends Controller
             );
         }
 
-        return redirect()->back()->with('success', 'Setting Data Saved Successfully');
+        return redirect()->back()->with('success', 'App Setting Data Saved Successfully');
     }
 
     /**
