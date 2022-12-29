@@ -12,4 +12,6 @@ return[
     'all_products' => 'All Products',
     'no_product' => 'No Product Found',
     'product' => 'Product Data',
+    'no_coupons' => 'No Coupons Found',
+    'all_coupons' => 'All Coupons',
 ];

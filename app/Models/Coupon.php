@@ -30,4 +30,8 @@ class Coupon extends Model
     public function vendor() {
         return $this->hasOne(User::class, 'id', 'vendor_id');
     }
+
+    public static function getCoupons() {
+        return static::where('status', 1)->get();
+    }
 }

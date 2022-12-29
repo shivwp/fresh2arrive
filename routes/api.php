@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\CouponController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::get('category/{categoryId}', [CategoryController::class, 'category']);
 
 Route::get('products', [ProductController::class, 'allProductsList']);
 Route::get('product/{productId}', [ProductController::class, 'product']);
+
+Route::get('coupons', [CouponController::class, 'allCouponsList']);
 
 Route::group(['as' => 'api.', 'middleware' =>['auth:api']], function(){
 
