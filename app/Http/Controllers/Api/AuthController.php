@@ -45,7 +45,13 @@ class AuthController extends Controller
                 // $data = ['otp' => $otp];
                 return ResponseBuilder::success($this->msg['OTP_SENT'], $this->success, $otp);
             }
-            
+
+            $userData = User::create([
+                'phone' => $request->phone,
+                'referal_code' => Helper::generateReferCode(),
+                'otp' => $otp,
+            ]);
+
             if($request->referred_code) {
                 $user = User::findByReferalCode($request->referred_code);
                 if(!$user) {
@@ -62,12 +68,6 @@ class AuthController extends Controller
                 ]);
             }
 
-            $userData = User::create([
-                'phone' => $request->phone,
-                'referal_code' => Helper::generateReferCode(),
-                'otp' => $otp,
-            ]);
-
             return ResponseBuilder::success($this->msg['OTP_SENT'], $this->success, $otp);
 
         } catch (\Exception $e) {
@@ -77,7 +77,7 @@ class AuthController extends Controller
 
     /**
      * User Otp Verify Function
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request, phone, otp
      * @return \Illuminate\Http\Response
      */
     public function verifyOtp(Request $request) {
@@ -111,8 +111,9 @@ class AuthController extends Controller
             if(!Auth::guard('api')->check()) {
                 return ResponseBuilder::error($this->msg['LOGIN'], $this->badRequest);
             }
-            $user = Auth::guard('api')->user();
-            $user->token()->revoke();
+            
+            Auth::guard('api')->user()->token()->revoke();
+            
             return ResponseBuilder::success($this->msg['LOG_OUT'], $this->success); 
         } catch (\Exception $e) {
             return ResponseBuilder::error($e->getMessage(), $this->badRequest);
