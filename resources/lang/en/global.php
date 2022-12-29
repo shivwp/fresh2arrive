@@ -8,4 +8,8 @@ return[
     'no_categories' => 'No categories Found',
     'all_categories' => 'All categories',
     'category' => 'Category Data',
+    'no_products' => 'No Products Found',
+    'all_products' => 'All Products',
+    'no_product' => 'No Product Found',
+    'product' => 'Product Data',
 ];

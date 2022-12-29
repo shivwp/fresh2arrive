@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,9 @@ Route::POST('resend-otp', [AuthController::class, 'resendOtp']);
 
 Route::get('categories', [CategoryController::class, 'categoriesList']);
 Route::get('category/{categoryId}', [CategoryController::class, 'category']);
+
+Route::get('products', [ProductController::class, 'allProductsList']);
+Route::get('product/{productId}', [ProductController::class, 'product']);
 
 Route::group(['as' => 'api.', 'middleware' =>['auth:api']], function(){
 

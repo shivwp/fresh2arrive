@@ -34,15 +34,13 @@ class AuthController extends Controller
             if($validator->fails()) {
                 return ResponseBuilder::error($validator->errors()->first(), $this->badRequest);
             }
+            
+            $data = $this->sendOtp($request->phone);
 
-            $otp = Helper::generateOtp();
-            $user = User::findByPhone($request->phone);
+            $otp = $data['otp'];
+            $login = $data['user_exists'];
 
-            if($user) {
-
-                $user->otp = $otp;
-                $user->save();
-                // $data = ['otp' => $otp];
+            if($login) {
                 return ResponseBuilder::success($this->msg['OTP_SENT'], $this->success, $otp);
             }
 
@@ -120,19 +118,29 @@ class AuthController extends Controller
             if($validator->fails()) {
                 return ResponseBuilder::error($validator->errors()->first(), $this->badRequest);
             }
+ 
+            $data = $this->sendOtp($request->phone);
+            $otp = $data['otp'];
 
-            $otp = Helper::generateOtp();
-            $user = User::findByPhone($request->phone);
-
-            if($user) {
-                $user->otp = $otp;
-                $user->save();
-            }
             return ResponseBuilder::success($this->msg['OTP_SENT'], $this->success, $otp);
 
         } catch (\Exception $e) {
             return ResponseBuilder::error($e->getMessage(),$this->badRequest);
         }
+    }
+
+    public function sendOtp($phone) {
+        $otp = Helper::generateOtp();
+        $user = User::findByPhone($phone);
+        $user_exists = false;
+
+        if($user) {
+            $user->otp = $otp;
+            $user->save();
+            $user_exists = true;
+        }
+         
+        return ["otp"=>$otp, "user_exists"=>$user_exists];
     }
 
     /**

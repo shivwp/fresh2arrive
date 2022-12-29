@@ -8,10 +8,7 @@ use App\Http\Resources\Admin\CategoryResource;
 use Illuminate\Http\Request;
 use App\Helper\ResponseBuilder;
 use App\Models\Category;
-use App\Helper\Helper;
 use Validator;
-use Auth;
-use Str;
 
 class CategoryController extends Controller
 {
