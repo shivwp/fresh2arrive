@@ -58,7 +58,7 @@ class AuthController extends Controller
                     return ResponseBuilder::error($this->msg['CODE_INVALID'], $this->badRequest);
                 }
 
-                $bonusAmount = Setting::where('key','referal_amount')->first();
+                $bonusAmount = Setting::getDataByKey('referal_amount');
                 $user->wallet_balance += $bonusAmount->value;
                 $user->save();
 
@@ -106,6 +106,39 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * User Resend Otp Verify Function
+     * @param \Illuminate\Http\Request $request, phone, otp
+     * @return \Illuminate\Http\Response
+     */
+    public function resendOtp(Request $request) {
+        try {
+            $validator = Validator::make($request->all(), [
+                'phone' => 'required | digits:10 | integer',
+            ]);
+
+            if($validator->fails()) {
+                return ResponseBuilder::error($validator->errors()->first(), $this->badRequest);
+            }
+
+            $otp = Helper::generateOtp();
+            $user = User::findByPhone($request->phone);
+
+            if($user) {
+                $user->otp = $otp;
+                $user->save();
+            }
+            return ResponseBuilder::success($this->msg['OTP_SENT'], $this->success, $otp);
+
+        } catch (\Exception $e) {
+            return ResponseBuilder::error($e->getMessage(),$this->badRequest);
+        }
+    }
+
+    /**
+     * User logout Function
+     * @return \Illuminate\Http\Response
+     */
     public function logout() {
         try {
             if(!Auth::guard('api')->check()) {
@@ -114,7 +147,7 @@ class AuthController extends Controller
             
             Auth::guard('api')->user()->token()->revoke();
             
-            return ResponseBuilder::success($this->msg['LOG_OUT'], $this->success); 
+            return ResponseBuilder::successMessage($this->msg['LOG_OUT'], $this->success); 
         } catch (\Exception $e) {
             return ResponseBuilder::error($e->getMessage(), $this->badRequest);
         }

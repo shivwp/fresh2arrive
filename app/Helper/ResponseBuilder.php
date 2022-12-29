@@ -17,7 +17,7 @@ class ResponseBuilder {
         $this->status = $status;
     }
 
-    public static function success ($msg, $httpCode, $data = null): HttpResponse {
+    public static function success ($msg, $httpCode, $data): HttpResponse {
         return self::asSuccess()
                 ->withData($data)
                 ->withMessage($msg)
@@ -28,6 +28,14 @@ class ResponseBuilder {
     public static function successwithToken ($token, $data, $msg, $httpCode): HttpResponse {
         return self::asSuccess()
                 ->withAuthToken($token)
+                ->withData($data)
+                ->withMessage($msg)
+                ->withHttpCode($httpCode)
+                ->build();
+    }
+
+    public static function successMessage ($msg, $httpCode, $data = null) {
+        return self::asSuccess()
                 ->withData($data)
                 ->withMessage($msg)
                 ->withHttpCode($httpCode)
