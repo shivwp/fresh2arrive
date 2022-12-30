@@ -59,6 +59,10 @@
 					<li class="nav-item">
 						<a class="nav-link {{ request()->is('admin/email-templates*') ? 'active' : '' }}" href="{{ route('admin.email-templates.index') }}"> Email Templates </a>
 					</li>
+
+					<li class="nav-item">
+						<a class="nav-link {{ request()->is('admin/coupon-inventories*') ? 'active' : '' }}" href="{{ route('admin.coupon-inventories.index') }}"> Coupon Inventory </a>
+					</li>
 				</ul>
 			</div>
 		</li>
