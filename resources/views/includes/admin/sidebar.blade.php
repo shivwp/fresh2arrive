@@ -20,13 +20,13 @@
 			</div>
 		</li>
 
-		<li class="nav-item {{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*')) || (request()->is('admin/vendor-products*')) || (request()->is('admin/coupons*'))) ? 'active' : '' }}">
-			<a class="nav-link" data-bs-toggle="collapse" href="#master" aria-expanded="{{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*')) || (request()->is('admin/vendor-products*')) || (request()->is('admin/coupons*'))) ? 'true' : 'false' }}" aria-controls="master">
+		<li class="nav-item {{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*')) || (request()->is('admin/vendor-products*')) || (request()->is('admin/coupons*')) || (request()->is('admin/sliders*')) || (request()->is('admin/faqs*')) || (request()->is('admin/email-templates*')) || (request()->is('admin/coupon-inventories*'))) ? 'active' : '' }}">
+			<a class="nav-link" data-bs-toggle="collapse" href="#master" aria-expanded="{{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*')) || (request()->is('admin/vendor-products*')) || (request()->is('admin/coupons*')) || (request()->is('admin/sliders*')) || (request()->is('admin/faqs*')) || (request()->is('admin/email-templates*')) || (request()->is('admin/coupon-inventories*'))) ? 'true' : 'false' }}" aria-controls="master">
 				<i class="menu-icon mdi mdi-database"></i>
 				<span class="menu-title">Master Entries</span>
 				<i class="menu-arrow"></i>
 			</a>
-			<div class="collapse {{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*')) || (request()->is('admin/vendor-products*')) ||(request()->is('admin/coupons*'))) ? 'show' : '' }}" id="master">
+			<div class="collapse {{ ((request()->is('admin/pages*')) || (request()->is('admin/categories*')) || (request()->is('admin/products*')) || (request()->is('admin/vendor-products*')) || (request()->is('admin/coupons*')) || (request()->is('admin/sliders*')) || (request()->is('admin/faqs*')) || (request()->is('admin/email-templates*')) || (request()->is('admin/coupon-inventories*'))) ? 'show' : '' }}" id="master">
 				<ul class="nav flex-column sub-menu">
 					<li class="nav-item">
 						<a class="nav-link {{ request()->is('admin/pages*') ? 'active' : '' }}" href="{{ route('admin.pages.index') }}"> Pages </a>
