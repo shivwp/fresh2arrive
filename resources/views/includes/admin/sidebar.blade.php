@@ -49,6 +49,10 @@
 					</li>
 
 					<li class="nav-item">
+						<a class="nav-link {{ request()->is('admin/sliders*') ? 'active' : '' }}" href="{{ route('admin.sliders.index') }}"> Slider </a>
+					</li>
+
+					<li class="nav-item">
 						<a class="nav-link {{ request()->is('admin/faqs*') ? 'active' : '' }}" href="{{ route('admin.faqs.index') }}"> FAQ's </a>
 					</li>
 				</ul>
