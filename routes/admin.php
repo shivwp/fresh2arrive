@@ -47,5 +47,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::GET('faqs/change-status/{id}', [FaqController::class, 'changeStatus'])->name('faqs.change-status');
     Route::RESOURCE('email-templates', EmailTemplateController::class);
     Route::GET('email-templates/change-status/{id}', [EmailTemplateController::class, 'changeStatus'])->name('email-templates.change-status');
+    Route::GET('banks/change-status/{id}', [BankController::class, 'changeStatus'])->name('banks.change-status');
     Route::GET('coupon-inventories', [CouponInventoryController::class, 'index'])->name('coupon-inventories.index');
 });

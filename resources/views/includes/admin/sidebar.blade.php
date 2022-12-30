@@ -75,7 +75,7 @@
 			</a>
 			<div class="collapse" id="bank">
 				<ul class="nav flex-column sub-menu">
-				<li class="nav-item"> <a class="nav-link" href="/banks"> Bank's List </a></li>
+				<li class="nav-item"> <a class="nav-link" href="{{ route('admin.banks.index') }}"> Bank's List </a></li>
 				</ul>
 			</div>
 		</li>

@@ -13,9 +13,37 @@ class BankController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $q = Bank::query();
+
+        if($request->keyword){
+            $d['keyword'] = $request->keyword;
+
+            $q->where('title', 'like', '%'.$d['keyword'].'%');
+        }
+
+        if($request->status){
+            $d['status'] = $request->status;
+
+            if($request->status == 'active'){
+                $q->where('status', '=', 1);
+            }
+            else {
+                $q->where('status', '=', 0);
+            }
+        }
+
+        if($request->items){
+            $d['items'] = $request->items;
+        }
+        else{
+            $d['items'] = 10;
+        }
+
+        $d['data'] = $q->orderBy('created_at','DESC')->paginate($d['items']);
+
+        return view('admin.bank.index',$d);
     }
 
     /**
@@ -36,23 +64,35 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        $request->validate([
+            'name' => 'required | string | unique:banks,name,'.$request->id,
+            'status' => 'required'
+        ]);
+
         $data = Bank::updateOrCreate(
             [
                 'id' => $request->id,
             ],
             [
                 'name' => $request->title,
+                'status' => $request->status,
             ]
         );
 
         if($data)
         {
-            return view('admin.bank.create');
+            if($request->id)
+            {
+                return redirect()->route('admin.banks.index')->with('success','Bank Updated successfully');
+            }
+            else
+            {
+                return redirect()->route('admin.banks.index')->with('success','Bank Created successfully');
+            }
         }
         else
         {
-            return view('admin.bank.create');
+            return redirect()->back()->with('error', 'Something went Wrong, Please try again!');
         }
     }
 
@@ -75,7 +115,8 @@ class BankController extends Controller
      */
     public function edit($id)
     {
-        //
+        $d['data'] = Bank::where('id', $id)->first();
+        return view('admin.bank.create',$d);
     }
 
     /**
@@ -98,6 +139,52 @@ class BankController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $data= Bank::where('id',$id)->first();
+            $result = $data->delete();
+            if($result) {
+                // $imagePath = config('app.product_image');
+                // if(isset($data->image)) {
+                //     Helper::removeImage($imagePath,$data->image);
+                // }
+                return response()->json(["success" => true]);
+            }
+            else {
+                return response()->json(["success" => false]);
+            }
+        }  catch(\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message'  => "Something went wrong, please try again!",
+                'error_msg' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    /**
+     * Change the specified resource status from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function changeStatus($id, Request $request)
+    {
+        try {
+            $data= Bank::where('id',$id)->first();
+            if($data) {
+                $data->status = $data->status == 1 ? 0 : 1;
+                $data->save();
+                return response()->json(["success" => true, "status"=> $data->status]);
+            }
+            else {
+                return response()->json(["success" => false]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message'  => "Something went wrong, please try again!",
+                'error_msg' => $e->getMessage(),
+            ], 400);
+        }
     }
 }
