@@ -16,4 +16,8 @@ class CouponInventory extends Model
         'total_price',
         'discounted_price',
     ];
+
+    public function user() {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

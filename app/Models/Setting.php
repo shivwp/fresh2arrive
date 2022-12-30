@@ -13,8 +13,4 @@ class Setting extends Model
         'key',
         'value',
     ];
-
-    public static function getDataByKey($key) {
-        return static::where('key', $key)->first();
-    }
 }

@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Product;
-use App\Helper\Helper;
+use App\Models\Faq;
 
-class ProductController extends Controller
+class FaqController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,12 +15,12 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $q = Product::query();
+        $q = Faq::query();
 
         if($request->keyword){
             $d['keyword'] = $request->keyword;
 
-            $q->where('name', 'like', '%'.$d['keyword'].'%');
+            $q->where('title', 'like', '%'.$d['keyword'].'%');
         }
 
         if($request->status){
@@ -36,12 +34,6 @@ class ProductController extends Controller
             }
         }
 
-        if($request->category){
-            $d['category'] = $request->category;
-
-            $q->where('category_id', '=', $d['category']);
-        }
-
         if($request->items){
             $d['items'] = $request->items;
         }
@@ -49,10 +41,9 @@ class ProductController extends Controller
             $d['items'] = 10;
         }
 
-        $d['data'] = $q->orderBy('created_at','DESC')->with('Category')->paginate($d['items']);
-        $d['categories'] = Category::where('status', '=', 1)->pluck('name', 'id');
+        $d['data'] = $q->orderBy('created_at','DESC')->paginate($d['items']);
 
-        return view('admin.product.index',$d);
+        return view('admin.faq.index',$d);
     }
 
     /**
@@ -62,9 +53,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $d['categories'] = Category::where('status', '=', 1)->pluck('name', 'id');
-        $d['units'] = Helper::Units();
-        return view('admin.product.create',$d);
+        return view('admin.faq.create');
     }
 
     /**
@@ -75,47 +64,34 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'title' => 'required | string | unique:products,name,'.$request->id,
-                'category' => 'required',
-                'SKU' => 'required | unique:products,SKU,'.$request->id,
-                'qty' => 'required | numeric',
-                'qty_type' => 'required',
-                'price' => 'required | numeric',
-                'status' => 'required',
-            ] + (!empty($request->id) ? ['image' => 'mimes:jpeg,png,jpg'] : ['image' => 'required | mimes:jpeg,png,jpg'])
-        );
+        $request->validate([
+            'question' => 'required | string',
+            'answer' => 'required',
+            'status' => 'required'
+        ]);
 
-        $imagePath = config('app.product_image');
-
-        $pages = Product::updateOrCreate(
+        $data = Faq::updateOrCreate(
             [
                 'id' => $request->id,
             ],
             [
-                'name' => $request->title,
-                'category_id' => $request->category,
-                'SKU' => $request->SKU,
-                'qty' => $request->qty,
-                'qty_type' => $request->qty_type,
-                'price' => $request->price,
-                'image' => $request->hasfile('image') ? Helper::storeImage($request->file('image'),$imagePath,$request->imageOld) : (isset($request->imageOld) ? $request->imageOld : ''),
+                'question' => $request->question,
+                'answer' => $request->answer,
                 'status' => $request->status,
             ]
         );
 
-        $result = $pages->update();
+        $result = $data->update();
 
         if($result)
         {
             if($request->id)
             {
-                return redirect()->route('admin.products.index')->with('success','Product Updated successfully');
+                return redirect()->route('admin.faqs.index')->with('success','FAQ Updated successfully');
             }
             else
             {
-                return redirect()->route('admin.products.index')->with('success','Product Created successfully');
+                return redirect()->route('admin.faqs.index')->with('success','FAQ Created successfully');
             }
         }
         else
@@ -132,9 +108,9 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $data['data'] = Product::where('id',$id)->with('Category')->first();
+        $data['data'] = Faq::where('id',$id)->first();
 
-        return view('admin.product.show',$data);
+        return view('admin.faq.show',$data);
     }
 
     /**
@@ -145,10 +121,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $d['categories'] = Category::where('status', '=', 1)->pluck('name', 'id');
-        $d['units'] = Helper::Units();
-        $d['data'] = Product::where('id', $id)->first();
-        return view('admin.product.create',$d);
+        $d['data'] = Faq::where('id', $id)->first();
+        return view('admin.faq.create',$d);
     }
 
     /**
@@ -172,7 +146,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         try {
-            $data= Product::where('id',$id)->first();
+            $data= Faq::where('id',$id)->first();
             $result = $data->delete();
             if($result) {
                 // $imagePath = config('app.product_image');
@@ -202,7 +176,7 @@ class ProductController extends Controller
     public function changeStatus($id, Request $request)
     {
         try {
-            $data= Product::where('id',$id)->first();
+            $data= Faq::where('id',$id)->first();
             if($data) {
                 $data->status = $data->status == 1 ? 0 : 1;
                 $data->save();
