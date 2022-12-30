@@ -14,7 +14,7 @@ $(document).ready(function(){
         $(this).next('span.invalid-feedback.form-invalid').css('display','none');
         // console.log($(this).next('span.invalid-feedback.form-invalid'));
 
-        // $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
+        $(this).closest('span.invalid-feedback.form-invalid').css('display','none');
         // console.log($(this).closest('span.invalid-feedback.form-invalid'));
     });
 
@@ -22,6 +22,7 @@ $(document).ready(function(){
     //     $('.invalid-feedback.form-invalid').addClass('d-none');
     // },5000);
 
+    $('.select2').select2();
 
     // script for jQuery form validation start
     $('#basic-form').validate();
@@ -141,4 +142,20 @@ $(document).ready(function(){
     });
     // script for delete alert popup end
 
+    $(".valid_to, .valid_from").on("change", function() {
+        var startDate = $(".valid_from").val();
+        var endDate = $(".valid_to").val();
+
+        if (endDate != "" && startDate != "" && endDate < startDate) {
+            $("#valid_to-error").html(
+                "End date should be greater than start date."
+            );
+            $(this).closest('input').addClass('error is-invalid');
+            // $('#valid_to-error').css('display','inline-block');
+            $(".valid_to").val("");
+        } else {
+            $("#valid_to-error").html("");
+            // $('#valid_to-error').css('display','none');
+        }
+    });
 });

@@ -19,15 +19,13 @@ class CouponController extends Controller
      */
     public function index(Request $request)
     {
-        $q = Coupon::query()->join('users', 'coupons.vendor_id', '=', 'users.id')->select('coupons.*', 'users.name');
+        // $q = Coupon::query()->join('users', 'coupons.vendor_id', '=', 'users.id')->select('coupons.*', 'users.name');
+        $q = Coupon::query();
 
         if($request->keyword){
             $d['keyword'] = $request->keyword;
 
-            $q->where(function ($query) use($d){
-                $query->where('coupon_code', 'like', '%'.$d['keyword'].'%')
-                        ->orwhere('name', 'like', '%'.$d['keyword'].'%');
-            });
+            $q->where('coupon_code', 'like', '%'.$d['keyword'].'%');
         }
 
         if($request->status){
@@ -60,7 +58,7 @@ class CouponController extends Controller
      */
     public function create()
     {
-        $d['vendors'] = User::where('is_vendor', '=', 1)->pluck('name', 'id');
+        $d['vendors'] = User::getVendorNameAndId();
         return view('admin.coupon.create',$d);
     }
 
@@ -77,8 +75,8 @@ class CouponController extends Controller
             'vendor' => 'required',
             'coupon_code' => 'required | unique:coupons,coupon_code,'.$request->id,
             'content' => 'required',
-            'valid_to' => 'required',
-            'valid_from' => 'required | before:valid_to',
+            'valid_to' => 'required | date',
+            'valid_from' => 'required | date | before_or_equal:valid_to',
             'discount_type' => 'required | in:F,P',
             'discount' => 'required',
             'max_reedem' => 'required',
@@ -93,7 +91,7 @@ class CouponController extends Controller
                 'id' => $request->id,
             ],
             [
-                'vendor_id' => $request->vendor,
+                'vendor_id' => implode(', ', $request->vendor),
                 'coupon_code' => strtoupper($request->coupon_code),
                 'coupon_details' => $request->content,
                 'valid_from' => $request->valid_from,
@@ -136,6 +134,9 @@ class CouponController extends Controller
     public function show($id)
     {
         $d['data'] = Coupon::where('id', $id)->first();
+        foreach(explode(',',$d['data']->vendor_id) as $value) {
+            $d['vendor_name'][] = User::getNameById($value);
+        }
         return view('admin.coupon.show',$d);
     }
 
@@ -147,7 +148,7 @@ class CouponController extends Controller
      */
     public function edit($id)
     {
-        $d['vendors'] = User::where('is_vendor', '=', 1)->pluck('name', 'id');
+        $d['vendors'] = User::getVendorNameAndId();
         $d['data'] = Coupon::where('id', $id)->first();
         return view('admin.coupon.create',$d);
     }

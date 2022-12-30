@@ -20,7 +20,12 @@
                                 <div class="col-md-4 ">
                                     <div class="p-3 listViewclr">
                                         <h6 class="fw-bolder">Vendor Name</h6>
-                                        <p class="mb-0">{{ ucfirst($data->vendor->name) ?? '-'}}</p>
+                                        <p class="mb-0">
+                                            @foreach($vendor_name as $vendor)
+                                                {{ ucfirst($vendor->name).',' ?? '-'}}
+                                            @endforeach
+                                        </p>
+                                        <!-- <p class="mb-0">{{ ucfirst($data->vendor->name) ?? '-'}}</p> -->
                                     </div>
                                 </div>
 

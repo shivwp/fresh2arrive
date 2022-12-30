@@ -94,4 +94,22 @@ class User extends Authenticatable
     public static function findByReferalCode($referal_code = null) {
         return static::where('referal_code', $referal_code)->first();
     }
+
+    /**
+     * Get User Name By Id.
+     * takes parameter User id.
+     * returns user's name
+     */
+    public static function getNameById($id) {
+        return static::where('id', $id)->first('name');
+    }
+
+    /**
+     * Get Vendor's Name and Id .
+     * 
+     * returns vendors's Name and Id
+     */
+    public static function getVendorNameAndId() {
+        return static::where('is_vendor', '=', 1)->pluck('name', 'id');
+    }
 }

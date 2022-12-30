@@ -18,6 +18,8 @@
 	<link rel="stylesheet" href="{{ asset('admin/assets/vendors/css/vendor.bundle.base.css') }}">
 	<link rel="stylesheet" href="{{ asset('admin/assets/css/vertical-layout-light/style.css') }}">
 
+	<link rel="stylesheet" href="{{ asset('admin/assets/css/select2.min.css') }}">
+
 	<!-- Custom Css Start -->
 	<link rel="stylesheet" href="{{ asset('css/custom.css') }}">
 	<!-- Custom Css End -->
@@ -65,6 +67,8 @@
 <!-- jQuery validation file -->
 <script src="{{ asset('admin/assets/js/jquery.validate.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('admin/assets/js/sweetalert.min.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('admin/assets/js/select2.full.min.js') }}" type="text/javascript"></script>
 
 <!-- Custom js Start -->
 <script src="{{ asset('js/custom.js') }}"></script>

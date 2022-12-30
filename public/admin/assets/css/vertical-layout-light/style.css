@@ -28268,13 +28268,13 @@ table.dataTable tbody td.select-checkbox:after {
 .select2-container--default .select2-selection--single,
 .select2-container--default .select2-dropdown,
 .select2-container--default .select2-selection--multiple {
-  border-color: #dee2e6;
+  border-color: #dee2e6 !important;
 }
 
 .select2-container--default .select2-selection--single .select2-search__field,
 .select2-container--default .select2-dropdown .select2-search__field,
 .select2-container--default .select2-selection--multiple .select2-search__field {
-  border-color: #dee2e6;
+  border-color: #dee2e6 !important;
 }
 
 .select2-container--default .select2-selection--single {
@@ -28294,37 +28294,37 @@ table.dataTable tbody td.select-checkbox:after {
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  color: color(white);
+  color: white;
   border: 0;
   border-radius: 3px;
-  padding: 6px;
-  font-size: .625rem;
+  padding: 8px 6px !important;
+  font-size: .812rem;
   font-family: inherit;
   line-height: 1;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove {
-  color: color(white);
+  color: white;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice:nth-child(5n+1) {
-  background: #1F3BB3;
+  background: #436be2;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice:nth-child(5n+2) {
-  background: #34B1AA;
+  background: #436be2;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice:nth-child(5n+3) {
-  background: #52CDFF;
+  background: #436be2;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice:nth-child(5n+4) {
-  background: #F95F53;
+  background: #436be2;
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice:nth-child(5n+5) {
-  background: #ffaf00;
+  background: #436be2;
 }
 
 /* Summernote Editor */

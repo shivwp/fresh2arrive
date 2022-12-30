@@ -32,10 +32,9 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label class="mt-2"> Vendors <span class="text-danger">*</span></label>
-                                    <select name="vendor" class="form-control form-select @error('vendor') is-invalid @enderror" required>
-                                        <option value="" {{ old('vendor') ? ((old('vendor') == '') ? 'selected' : '' ) : ( (isset($data) && $data->vendor_id == 0) ? 'selected' : '' ) }} >Select vendor</option>
+                                    <select name="vendor[]" class="form-control form-select @error('vendor') is-invalid @enderror select2" multiple>
                                         @foreach($vendors as $key => $value) 
-                                            <option value={{$key}} {{ old('vendor') ? ((old('vendor') == $key) ? 'selected' : '' ) : ( (isset($data) && $data->vendor_id == $key) ? 'selected' : '' ) }} >{{ $value }}</option>
+                                            <option value={{$key}} {{ old('vendor') ? ((old('vendor') == $key) ? 'selected' : '' ) : ( (isset($data) && in_array($key, explode(',', $data->vendor_id))) ? 'selected' : '' ) }} >{{ $value }}</option>
                                         @endforeach
                                     </select>
                                     @error('vendor')
@@ -46,8 +45,8 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Coupon Code </label>
-                                    <input type="text" name="coupon_code" class="form-control @error('coupon_code') is-invalid @enderror coupon_code" placeholder="Coupon Code" value="{{ old('coupon_code', isset($data) && isset($data->coupon_code) ? $data->coupon_code : '') }}" required>
+                                    <label for="name" class="mt-2"> Coupon Code <span class="text-danger">*</span></label>
+                                    <input type="text" name="coupon_code" class="form-control @error('coupon_code') is-invalid @enderror coupon_code" placeholder="Coupon Code" value="{{ old('coupon_code', isset($data) && isset($data->coupon_code) ? $data->coupon_code : '') }}" required minlength="10" maxlength="10">
                                     @error('coupon_code')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">
                                             {{ $message }}
@@ -68,7 +67,7 @@
 
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Valid From </label>
+                                    <label for="name" class="mt-2"> Valid From <span class="text-danger">*</span></label>
                                     <input type="date" name="valid_from" class="form-control @error('valid_from') is-invalid @enderror valid_from" placeholder="Valid From" value="{{ old('valid_from', isset($data) && isset($data->valid_from) ? $data->valid_from : '') }}" min="{{ date('Y-m-d'); }}" required>
                                     @error('valid_from')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">
@@ -78,8 +77,9 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Valid Upto </label>
+                                    <label for="name" class="mt-2"> Valid Upto <span class="text-danger">*</span></label>
                                     <input type="date" name="valid_to" class="form-control @error('valid_to') is-invalid @enderror valid_to" placeholder="valid_to" value="{{ old('valid_to', isset($data) && isset($data->valid_to) ? $data->valid_to : '') }}" min="{{ date('Y-m-d'); }}" required>
+                                    <p class="valid_to_error text-danger"></p>
                                     @error('valid_to')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">
                                             {{ $message }}
@@ -104,7 +104,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Discount </label>
+                                    <label for="name" class="mt-2"> Discount <span class="text-danger">*</span><span class="info">(Enter Percent value when select Percentage otherwise enter amount)</span></label>
                                     <input type="number" name="discount" class="form-control @error('discount') is-invalid @enderror discount" placeholder="Discount" value="{{ old('discount', isset($data) && isset($data->amount) ? $data->amount : '') }}" min="0" required>
                                     @error('discount')
                                     <span class="invalid-feedback form-invalid fw-bold" role="alert">
@@ -116,7 +116,7 @@
                             
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Maximum Reedem <span class="info">(Single User)</span></label>
+                                    <label for="name" class="mt-2"> Maximum Reedem <span class="text-danger">*</span><span class="info">(Single User)</span></label>
                                     <input type="number" name="max_reedem" class="form-control @error('max_reedem') is-invalid @enderror max_reedem" placeholder="Maximum Reedem" value="{{ old('max_reedem', isset($data) && isset($data->max_reedem) ? $data->max_reedem : '') }}" min="0" required>
                                     @error('max_reedem')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">
@@ -126,7 +126,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Max no. of User </label>
+                                    <label for="name" class="mt-2"> Max no. of User <span class="text-danger">*</span></label>
                                     <input type="number" name="max_user" class="form-control @error('max_user') is-invalid @enderror max_user" placeholder="Maximum number of User" value="{{ old('max_user', isset($data) && isset($data->max_user) ? $data->max_user : '') }}" min="0" required>
                                     @error('max_user')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">
@@ -138,7 +138,7 @@
 
                             <div class="row">
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Max Discount </label>
+                                    <label for="name" class="mt-2"> Max Discount <span class="text-danger">*</span></label>
                                     <input type="number" name="max_discount" class="form-control @error('max_discount') is-invalid @enderror max_discount" placeholder="Maximum Discount" value="{{ old('max_discount', isset($data) && isset($data->max_discount) ? $data->max_discount : '') }}" min="0" required>
                                     @error('max_discount')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">
@@ -148,7 +148,7 @@
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label for="name" class="mt-2"> Min Order Value </label>
+                                    <label for="name" class="mt-2"> Min Order Value <span class="text-danger">*</span></label>
                                     <input type="number" name="min_order_value" class="form-control @error('min_order_value') is-invalid @enderror min_order_value" placeholder="Minimum Order Value" value="{{ old('min_order_value', isset($data) && isset($data->min_order_value) ? $data->min_order_value : '') }}" min="0" required>
                                     @error('min_order_value')
                                         <span class="invalid-feedback form-invalid fw-bold" role="alert">

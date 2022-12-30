@@ -103,7 +103,7 @@
                                 <thead>
                                     <tr>
                                         <th>S No.</th>
-                                        <th>Vendor</th>
+                                        <!-- <th>Vendor</th> -->
                                         <th>Coupon</th>
                                         <th>Valid From</th>
                                         <th>Valid Upto</th>
@@ -124,7 +124,7 @@
                                     @foreach($data as $key => $value)
                                         <tr data-entry-id="{{ $value->id }}">
                                             <td>{{ $i++ ?? ''}}</td>
-                                            <td>{{ $value->vendor->name ?? '' }}</td>
+                                            <!-- <td>{{ $value->vendor->name ?? '' }}</td> -->
                                             <td>{{ $value->coupon_code ?? '' }}</td>
                                             <td>{{ date('d-M-Y', strtotime($value->valid_from)) ?? '' }}</td>
                                             <td>{{ date('d-M-Y', strtotime($value->valid_to)) ?? '' }}</td>
@@ -147,7 +147,7 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr><td colspan="8">No Data Found</td></tr>
+                                    <tr><td colspan="7">No Data Found</td></tr>
                                 @endif
                             </table>
                             @if ((request()->get('keyword')) || (request()->get('status')) || (request()->get('category')) || (request()->get('items')))

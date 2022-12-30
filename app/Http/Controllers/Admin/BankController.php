@@ -65,7 +65,7 @@ class BankController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required | string | unique:banks,name,'.$request->id,
+            'title' => 'required | string | unique:banks,name,'.$request->id,
             'status' => 'required'
         ]);
 

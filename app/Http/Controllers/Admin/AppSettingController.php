@@ -44,13 +44,13 @@ class AppSettingController extends Controller
             'force_update' => 'required',
         ]);
         
-        $data[] = [
+        $data = [
             'app_version' => $request->app_version,
             'maintenance_mode' => $request->maintenance_mode,
             'force_update' => $request->force_update,
         ];
 
-        foreach ($data[0] as $key => $value) {
+        foreach ($data as $key => $value) {
             Setting::updateOrCreate(
                 [
                     'key' => $key,
