@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\VendorProductController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\EmailTemplateController;
 
 Auth::routes();
 
@@ -43,4 +44,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::GET('sliders/change-status/{id}', [SliderController::class, 'changeStatus'])->name('sliders.change-status');
     Route::RESOURCE('faqs', FaqController::class);
     Route::GET('faqs/change-status/{id}', [FaqController::class, 'changeStatus'])->name('faqs.change-status');
+    Route::RESOURCE('email-templates', EmailTemplateController::class);
+    Route::GET('email-templates/change-status/{id}', [EmailTemplateController::class, 'changeStatus'])->name('email-templates.change-status');
 });
