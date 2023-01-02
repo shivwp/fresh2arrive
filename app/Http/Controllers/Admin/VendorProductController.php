@@ -107,15 +107,40 @@ class VendorProductController extends Controller
         $result = $data->update();
 
         $i = 0;
-        foreach($request->variants as $variant) {
+        $variants_data_new = [];
+        $remove_variant_id = [];
 
-            $variants_data[] = $variant 
-            + (!empty($request->id) ? ['vendor_product_id' => $request->id] : ['vendor_product_id' => $data->id])
-            + (!empty($request->vendor_id) ? ['id' => $request->vendor_id[$i++]] : []);;
+        $productVariants = VendorProductVariant::where('vendor_product_id' ,$request->vendor_product_id)->pluck('id')->toArray();
+
+        if(!empty($request->vendor_product_variant_id)) {
+            $remove_variant_id = array_diff($productVariants,$request->vendor_product_variant_id);
         }
 
-        VendorProductVariant::upsert($variants_data, ['id'],['vendor_product_id','market_price','variant_qty','variant_qty_type','price']);
-        
+        foreach($request->variants as $variant) {
+
+            if(!empty($request->vendor_product_variant_id) && (isset($request->vendor_product_variant_id[$i]))) {
+                $variants_data[] = $variant 
+                + (!empty($request->id) ? ['vendor_product_id' => $request->id] : ['vendor_product_id' => $data->id])
+                + (['id' => $request->vendor_product_variant_id[$i]]);
+            }
+            else {
+                $variants_data_new[] = $variant 
+                + (!empty($request->id) ? ['vendor_product_id' => $request->id] : ['vendor_product_id' => $data->id]);
+            }
+            $i++;
+        }
+
+        if(!empty($request->id)) {
+            VendorProductVariant::upsert($variants_data, ['id'],['vendor_product_id','market_price','variant_qty','variant_qty_type','price']);
+        }
+        if(count($variants_data_new)>0) {
+            VendorProductVariant::upsert($variants_data_new, ['id'],['vendor_product_id','market_price','variant_qty','variant_qty_type','price']);
+        }
+
+        if(count($remove_variant_id)>0) {
+            VendorProductVariant::whereIn('id',$remove_variant_id)->delete();
+        }
+
         if($result)
         {
             if($request->id)
@@ -141,7 +166,9 @@ class VendorProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['data'] = VendorProduct::where('id',$id)->with('product','variants')->first();
+
+        return view('admin.vendor-product.show',$data);
     }
 
     /**
@@ -179,9 +206,14 @@ class VendorProductController extends Controller
      */
     public function destroy($id)
     {
+        
         try {
             $data= VendorProduct::where('id',$id)->first();
             $result = $data->delete();
+
+            $variants = VendorProductVariant::where('vendor_product_id',$id)->pluck('id')->toArray();
+            VendorProductVariant::whereIn('id',$variants)->delete();
+            
             if($result) {
                 // $imagePath = config('app.product_image');
                 // if(isset($data->image)) {

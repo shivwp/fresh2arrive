@@ -27,11 +27,11 @@ class VendorProduct extends Model
     }
 
     public function category() {
-        return $this->hasMany(Category::class, 'id', 'category_id');
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
     public function product() {
-        return $this->hasMany(Product::class, 'id', 'product_id');
+        return $this->hasOne(Product::class, 'id', 'product_id');
     }
 
     // public function getProductByCategoryId() {

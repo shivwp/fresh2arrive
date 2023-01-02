@@ -43,6 +43,7 @@ class User extends Authenticatable
         'admin_commission',
         'as_driver_verified',
         'as_vendor_verified',
+        'featured_store',
         'password',
         'status',
     ];

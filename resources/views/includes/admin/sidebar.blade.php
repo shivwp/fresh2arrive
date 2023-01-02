@@ -41,7 +41,7 @@
 					</li>
 
 					<li class="nav-item">
-						<a class="nav-link {{ request()->is('admin/vendor-products*') ? 'active' : '' }}" href="{{ route('admin.vendor-products.index') }}"> Vendor Products </a>
+						<a class="nav-link {{ request()->is('admin/vendor-products*') ? 'active' : '' }}" href="{{ route('admin.vendor-products.index') }}"> Store Products </a>
 					</li>
 					
 					<li class="nav-item">

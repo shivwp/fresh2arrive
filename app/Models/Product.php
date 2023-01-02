@@ -17,12 +17,22 @@ class Product extends Model
         'name',
         'qty',
         'qty_type',
-        'price',
+        'market_price',
+        'regular_price',
+        'content',
         'image',
         'status',
     ];
 
     public function Category() {
         return $this->hasOne(Category::class, 'id','category_id');
+    }
+
+    public static function getProductsByCategoryId($category_id = null) {
+        return static::where('category_id', $category_id)->get();
+    }
+
+    public static function getProductDetailsByID($id = null) {
+        return static::where('id', $id)->first();
     }
 }

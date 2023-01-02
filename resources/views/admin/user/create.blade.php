@@ -138,7 +138,7 @@
                                             <div class="form-check">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input is_vendor" type="checkbox" name="vendor" {{ old('vendor') ? 'checked' : (isset($data) ? ($data->is_vendor ? 'checked' : '' ) : '' ) }} value="1">
-                                                    {{ __('Vendor') }}
+                                                    {{ __('Store') }}
                                                 </label>
                                             </div>
                                         </div>
@@ -493,13 +493,24 @@
                                             </div>
                                         </div>
 
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <div class="form-check">
-                                                    <label class="form-check-label text-muted">
-                                                        <input class="form-check-input" type="checkbox" name="vendorVerify" {{ old('vendorVerify') ? 'checked' : (isset($data) ? ($data->as_vendor_verified ? 'checked' : '' ) : '' ) }} value="1">
-                                                        {{ __('Approve as Vendor') }}
-                                                    </label>
+                                        <div class="col-md-6 {{ isset($data) ? 'mt-auto' : '' }}">
+                                            <div class="row">
+                                                <div class="form-group col-md-6 {{ isset($data) ? 'mb-0 mt-auto' : '' }}">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" type="checkbox" name="vendorVerify" {{ old('vendorVerify') ? 'checked' : (isset($data) ? ($data->as_vendor_verified ? 'checked' : '' ) : '' ) }} value="1">
+                                                            {{ __('Approve as Vendor') }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-6 {{ isset($data) ? 'mb-0 mt-auto' : '' }}">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input class="form-check-input" type="checkbox" name="featured_store" {{ old('featured_store') ? 'checked' : (isset($data) ? ($data->featured_store ? 'checked' : '' ) : '' ) }} value="1">
+                                                            {{ __('Featured store') }}
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

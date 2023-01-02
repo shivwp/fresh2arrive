@@ -132,15 +132,11 @@
                                         <tr data-entry-id="{{ $value->id }}">
                                             <td>{{ $i++ ?? ''}}</td>
                                             <td>
-                                                @foreach($value->product as $product_value)
-                                                    {{ $product_value->name; }}
-                                                @endforeach
+                                                    {{ $value->product->name; }}
                                             </td>
                                             <td>{{ $value->vendor->name; }}</td>
                                             <td>
-                                                @foreach($value->category as $category_value)
-                                                    {{ $category_value->name; }}
-                                                @endforeach
+                                                    {{ $value->category->name; }}
                                             </td>
                                             <td class="text-center">
                                                 <span class="btn btn-xs {{ $value->status ? 'btn-success' : 'btn-danger' }} text-capitalize change-status" route="{{ route('admin.vendor-products.change-status', $value->id) }}">{{ $value->status ? 'Active' : 'In-Active' }}</span>

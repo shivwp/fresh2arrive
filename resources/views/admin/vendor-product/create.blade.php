@@ -79,33 +79,23 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="name" class="mt-2"> SKU </label>
-                                    @if(isset($data->product) && (count($data->product)>0))
-                                    @foreach($data->product as $product)
-                                        <input type="text" name="SKU" class="form-control @error('SKU') is-invalid @enderror SKU" placeholder="SKU" value="{{ old('SKU', isset($product) && isset($product->SKU) ? $product->SKU : '') }}" disabled>
-                                        @error('SKU')
-                                            <span class="invalid-feedback form-invalid fw-bold" role="alert">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
-                                    @endforeach
-                                    @else 
-                                        <input type="text" name="SKU" class="form-control @error('SKU') is-invalid @enderror SKU" placeholder="SKU" value="{{ old('SKU', isset($product) && isset($product->SKU) ? $product->SKU : '') }}" disabled>
-                                        @error('SKU')
-                                            <span class="invalid-feedback form-invalid fw-bold" role="alert">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
-                                    @endif
+                                    <input type="text" name="SKU" class="form-control @error('SKU') is-invalid @enderror SKU" placeholder="SKU" value="{{ old('SKU', isset($data) && isset($data->product->SKU) ? $data->product->SKU : '') }}" disabled>
+                                    @error('SKU')
+                                        <span class="invalid-feedback form-invalid fw-bold" role="alert">
+                                            {{ $message }}
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
 
                             @php $count=0; @endphp
                             @if(isset($data->variants) && (count($data->variants)>0))
                             @foreach($data->variants as $variant)
-                            <input type="hidden" name="vendor_id[]" value="{{ $variant->id }}">
-                            <input type="hidden" name="variants_count" id="variants_count" value="{{isset($data->variants) && (count($data->variants))}}">
                             <div class="variants " id="variants">
                                 <div class="row">
+                                    <input type="hidden" name="vendor_product_variant_id[]" value="{{ $variant->id }}">
+                                    <input type="hidden" name="variants_count" id="variants_count" value="{{isset($data->variants) && (count($data->variants)>0) ? count($data->variants) : ''}}">
+                            
                                     <div class="form-group col-md-2">
                                         <label for="name" class="mt-2"> Quantity <span class="text-danger">*</span></label>
                                         
@@ -233,7 +223,7 @@
                                 <div class="form-group col-md-6">
                                     <div class="mt-3 img-div {{ !empty($data->image) ? 'show-img' : 'hide-img' }}">
                                         <span class="pip" data-title="{{isset($data->image)}}">
-                                            <img src="{{ isset($data->image) ? url(config('app.product_image')).'/'.$data->image : '' }}" class="image" alt="" width="150" height="100">
+                                            <img src="{{ isset($data->image) ? url(config('app.vendor_product_image')).'/'.$data->image : '' }}" class="image" alt="" width="150" height="100">
                                         </span>
                                     </div>
                                     <label for="name" class="mt-2"> Image <span class="text-danger info">(Only jpeg, png, jpg files allowed)</span></label>
@@ -334,8 +324,8 @@ $(document).ready(function(){
         getProductDetail(product_id);
     });
 
-    // variants_count = document.getElementById('variants_count').value;
-    var variants_count = 1;
+    variants_count = document.getElementById('variants_count').value;
+    // var variants_count = 1;
     $('#add_variant_btn').click(function(){
         
         data = '<div class="variants " id="variants">'

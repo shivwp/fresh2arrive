@@ -181,6 +181,7 @@ class UserController extends Controller
             'self_delivery' => $request->vendor ? ($request->self_delivery ? $request->self_delivery : 0 ) : 0,
             'admin_commission' => $request->vendor ? ($request->admin_commission ? $request->admin_commission : 0 ) : 0,
             'as_vendor_verified' => $request->vendor ? ($request->vendorVerify ? $request->vendorVerify : 0 ) : 0,
+            'featured_store' => $request->featured_store ? ($request->featured_store ? $request->featured_store : 0 ) : 0,
         ];
 
         if(!empty($request->password)) {
