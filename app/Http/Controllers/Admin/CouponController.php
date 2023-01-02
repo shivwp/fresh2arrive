@@ -8,7 +8,6 @@ use App\Models\Coupon;
 use App\Models\User;
 use App\Models\Category;
 use App\Helper\Helper;
-use Carbon\Carbon;
 
 class CouponController extends Controller
 {

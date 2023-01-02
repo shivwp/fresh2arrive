@@ -18,18 +18,21 @@ use App\Http\Controllers\Api\CouponController;
 |
 */
 
+// Without login api's - Without Token
 Route::POST('login', [AuthController::class, 'login']);
 Route::POST('verify-otp', [AuthController::class, 'verifyOtp']);
 Route::GET('logout', [AuthController::class, 'logout']);
 Route::POST('resend-otp', [AuthController::class, 'resendOtp']);
 
-Route::get('categories', [CategoryController::class, 'categoriesList']);
-Route::get('category/{categoryId}', [CategoryController::class, 'category']);
 
-Route::get('products', [ProductController::class, 'allProductsList']);
-Route::get('product/{productId}', [ProductController::class, 'product']);
+// 
+Route::get('categories', [CategoryController::class, 'list']);
+Route::get('category/{categoryId}', [CategoryController::class, 'view']);
 
-Route::get('coupons', [CouponController::class, 'allCouponsList']);
+Route::get('products', [ProductController::class, 'list']);
+Route::get('product/{productId}', [ProductController::class, 'view']);
+
+Route::get('coupons', [CouponController::class, 'list']);
 
 Route::group(['as' => 'api.', 'middleware' =>['auth:api']], function(){
 

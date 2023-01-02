@@ -65,7 +65,7 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'question' => 'required | string',
+            'question' => 'required | string | unique:faqs,question,'.$request->id,
             'answer' => 'required',
             'status' => 'required'
         ]);

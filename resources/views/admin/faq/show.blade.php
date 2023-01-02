@@ -27,7 +27,7 @@
                                 <div class="col-md-12">
                                     <div class="p-3 listViewclr">
                                         <h6 class="fw-bolder">Answer</h6>
-                                        <p class="mb-0">{{ $data->answer ?? '-'}}</p>
+                                        <p class="mb-0">{!! $data->answer ?? '-' !!}</p>
                                     </div>
                                 </div>
 

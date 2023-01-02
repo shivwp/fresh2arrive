@@ -22,4 +22,17 @@ class Order extends Model
         'commission_admin',
         'status',
     ];
+
+    public function user() {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function vendor() {
+        return $this->hasOne(User::class, 'id', 'vendor_id');
+    }
+
+    public function driver() {
+        return $this->hasOne(User::class, 'id', 'driver_id');
+    }
+    
 }

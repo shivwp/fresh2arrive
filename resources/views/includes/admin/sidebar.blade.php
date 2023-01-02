@@ -99,12 +99,12 @@
 			</div>
 		</li>
 
-		<!-- <li class="nav-item">
-			<a class="nav-link" href="{{ route('admin.site-setting.index') }}">
+		<li class="nav-item">
+			<a class="nav-link" href="{{ route('admin.orders.index') }}">
 				<i class="mdi mdi-settings menu-icon"></i>
-				<span class="menu-title">Setting</span>
+				<span class="menu-title">Orders</span>
 			</a>
-		</li> -->
+		</li>
 
 		<!-- <li class="nav-item {{ request()->is('admin/pages*') ? 'active' : '' }}">
 			<a class="nav-link" href="{{ route('admin.pages.index') }}">

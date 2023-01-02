@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\EmailTemplateController;
 use App\Http\Controllers\Admin\CouponInventoryController;
+use App\Http\Controllers\Admin\OrderController;
 
 Auth::routes();
 
@@ -49,4 +50,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::GET('email-templates/change-status/{id}', [EmailTemplateController::class, 'changeStatus'])->name('email-templates.change-status');
     Route::GET('banks/change-status/{id}', [BankController::class, 'changeStatus'])->name('banks.change-status');
     Route::GET('coupon-inventories', [CouponInventoryController::class, 'index'])->name('coupon-inventories.index');
+    Route::RESOURCE('orders', OrderController::class);
 });

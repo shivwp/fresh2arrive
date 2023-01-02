@@ -136,7 +136,7 @@
                                         </tr>
                                     @endforeach
                                 @else
-                                    <tr><td colspan="7">No Data Found</td></tr>
+                                    <tr><td colspan="6">No Data Found</td></tr>
                                 @endif
                             </table>
                             @if ((request()->get('keyword')) || (request()->get('items')))

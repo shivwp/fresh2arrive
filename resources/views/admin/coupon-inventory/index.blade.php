@@ -99,7 +99,7 @@
 
                     <div class="card-body">
                         <div class="table">
-                            <table id="example" class="table table-striped table-bordered">
+                            <table id="example" class="table table-striped table-bordered no-action">
                                 <thead>
                                     <tr>
                                         <th>S No.</th>

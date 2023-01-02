@@ -16,7 +16,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function allProductsList(Request $request)
+    public function list(Request $request)
     {
         try {
             $data = Product::where('status', 1)->get();
@@ -36,7 +36,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function product($id)
+    public function view($id)
     {
         try {
             $data = Product::where('id', $id)->where('status', 1)->first();

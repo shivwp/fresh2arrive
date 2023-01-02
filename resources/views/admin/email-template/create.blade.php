@@ -39,7 +39,7 @@
 
                             <div class="form-group">
                                 <label for="name" class="mt-2"> Email Key <span class="text-danger">*</span></label>
-                                <input type="email" name="email_key" class="form-control @error('email_key') is-invalid @enderror" placeholder="Email Key" value="{{ old('email_key', isset($data) ? $data->email_key : '') }}" required>
+                                <input type="text" name="email_key" class="form-control @error('email_key') is-invalid @enderror" placeholder="Email Key" value="{{ old('email_key', isset($data) ? $data->email_key : '') }}" required>
                                 @error('email_key')
                                     <span class="invalid-feedback form-invalid fw-bold" role="alert">
                                         {{ $message }}

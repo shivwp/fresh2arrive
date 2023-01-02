@@ -17,7 +17,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function categoriesList(Request $request)
+    public function list(Request $request)
     {
         try {
             $data = Category::where('status', 1)->get();
@@ -37,7 +37,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function category($id)
+    public function view($id)
     {
         try {
             $data = Category::where('id', $id)->where('status', 1)->first();

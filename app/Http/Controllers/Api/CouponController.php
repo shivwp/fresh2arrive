@@ -15,7 +15,7 @@ class CouponController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function allCouponsList(Request $request)
+    public function list(Request $request)
     {
         try {
             $data = Coupon::getCoupons();

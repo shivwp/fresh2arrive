@@ -8,6 +8,9 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use stdClass;
 use App\Helper\Helper;
+use Illuminate\Http\Request;
+use Validator;
+
 
 class Controller extends BaseController
 {
@@ -30,6 +33,14 @@ class Controller extends BaseController
         $this->response = new stdClass();
         $this->responseNew = new stdClass();
         $this->msg = Helper::Messages();
+    }
+
+    static public function isValidPayload(Request $request, $validSet){
+        $validator = Validator::make($request->all(), $validSet);
+
+        if($validator->fails()) {
+            return $validator->errors()->first();
+        }
     }
     
 }

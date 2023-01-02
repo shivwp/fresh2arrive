@@ -15,11 +15,6 @@ use Auth;
 
 class AuthController extends Controller
 {
-    // protected $msg;
-
-    // public function __construct() {
-    //     $this->msg = Helper::Messages();
-    // }
     /**
      * User Login/Register Function
      * @param \Illuminate\Http\Request $request
@@ -27,13 +22,16 @@ class AuthController extends Controller
      */
     public function login(Request $request) {
         try {
-            $validator = Validator::make($request->all(), [
-                'phone' => 'required | digits:10 | integer',
-            ]);
+            // Validation start
+            $validSet = [
+                'phone' => 'required | digits:10 | integer'
+            ]; 
 
-            if($validator->fails()) {
-                return ResponseBuilder::error($validator->errors()->first(), $this->badRequest);
+            $isValid = $this->isValidPayload($request, $validSet);
+            if($isValid){
+                return ResponseBuilder::error($isValid, $this->badRequest);
             }
+            // Validation end
             
             $data = $this->sendOtp($request->phone);
 
@@ -80,14 +78,17 @@ class AuthController extends Controller
      */
     public function verifyOtp(Request $request) {
         try {
-            $validator = Validator::make($request->all(), [
+            // Validation start
+            $validSet = [
                 'phone' => 'required | digits:10 | integer | exists:users,phone',
                 'otp' => 'required | digits:4'
-            ]);
+            ]; 
 
-            if($validator->fails()) {
-                return ResponseBuilder::error($validator->errors()->first(), $this->badRequest);
+            $isValid = $this->isValidPayload($request, $validSet);
+            if($isValid){
+                return ResponseBuilder::error($isValid, $this->badRequest);
             }
+            // Validation end
 
             $user = User::findByPhone($request->phone);
             
@@ -111,13 +112,16 @@ class AuthController extends Controller
      */
     public function resendOtp(Request $request) {
         try {
-            $validator = Validator::make($request->all(), [
+            // Validation start
+            $validSet = [
                 'phone' => 'required | digits:10 | integer',
-            ]);
+            ]; 
 
-            if($validator->fails()) {
-                return ResponseBuilder::error($validator->errors()->first(), $this->badRequest);
+            $isValid = $this->isValidPayload($request, $validSet);
+            if($isValid){
+                return ResponseBuilder::error($isValid, $this->badRequest);
             }
+            // Validation end
  
             $data = $this->sendOtp($request->phone);
             $otp = $data['otp'];
