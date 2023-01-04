@@ -27,9 +27,9 @@ class AuthController extends Controller
                 'phone' => 'required | digits:10 | integer'
             ]; 
 
-            $isValid = $this->isValidPayload($request, $validSet);
-            if($isValid){
-                return ResponseBuilder::error($isValid, $this->badRequest);
+            $isInValid = $this->isValidPayload($request, $validSet);
+            if($isInValid){
+                return ResponseBuilder::error($isInValid, $this->badRequest);
             }
             // Validation end
             
@@ -59,7 +59,7 @@ class AuthController extends Controller
                 $user->save();
 
                 UserReferal::create([
-                    'referred_user_id' => $request->referred_code,
+                    'referred_user_id' => $user->id,
                     'user_id' => $userData->id,
                 ]);
             }
@@ -84,9 +84,9 @@ class AuthController extends Controller
                 'otp' => 'required | digits:4'
             ]; 
 
-            $isValid = $this->isValidPayload($request, $validSet);
-            if($isValid){
-                return ResponseBuilder::error($isValid, $this->badRequest);
+            $isInValid = $this->isValidPayload($request, $validSet);
+            if($isInValid){
+                return ResponseBuilder::error($isInValid, $this->badRequest);
             }
             // Validation end
 
@@ -117,9 +117,9 @@ class AuthController extends Controller
                 'phone' => 'required | digits:10 | integer',
             ]; 
 
-            $isValid = $this->isValidPayload($request, $validSet);
-            if($isValid){
-                return ResponseBuilder::error($isValid, $this->badRequest);
+            $isInValid = $this->isValidPayload($request, $validSet);
+            if($isInValid){
+                return ResponseBuilder::error($isInValid, $this->badRequest);
             }
             // Validation end
  
@@ -145,6 +145,59 @@ class AuthController extends Controller
         }
          
         return ["otp"=>$otp, "user_exists"=>$user_exists];
+    }
+
+    /**
+     * User Profile Update
+     * @param \Illuminate\Http\Request $request, name, email, phone
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProfile(Request $request) {
+        try {
+            $user = Auth::guard('api')->user();
+            // Validation start
+            $validSet = [
+                'name' => 'required',
+                'email' => 'required | email | unique:users,email,'.$user->id,
+                'profile_image' => 'mimes:jpeg,png,jpg',
+            ]; 
+            // return $validSet;
+
+            $isInValid = $this->isValidPayload($request, $validSet);
+            if($isInValid){
+                return ResponseBuilder::error($isInValid, $this->badRequest);
+            }
+            // Validation end
+
+            $imagePath = config('app.profile_image');
+            $profileImageOld = $user->profile_image;
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->profile_image = $request->hasfile('profile_image') ? Helper::storeImage($request->file('profile_image'), $imagePath, $profileImageOld) : (isset($profileImageOld) ? $profileImageOld : '');
+            $user->update();
+
+            $data = $this->setAuthResponse($user);
+
+            return ResponseBuilder::successMessage(trans('global.profile_updated'), $this->success, $data); 
+            
+        } catch (\Exception $e) {
+            return ResponseBuilder::error($e->getMessage(),$this->badRequest);
+        }
+    }
+
+    /**
+     * User Profile
+     * @return \Illuminate\Http\Response
+     */
+    public function userProfile() {
+        try {
+            $user = Auth::guard('api')->user();  
+            $data = $this->setAuthResponse($user);
+            return ResponseBuilder::successMessage(trans('global.profile_detail'), $this->success, $data); 
+        } catch (\Exception $e) {
+            return ResponseBuilder::error($e->getMessage(),$this->badRequest);
+        }
     }
 
     /**

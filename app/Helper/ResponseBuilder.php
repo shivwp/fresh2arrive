@@ -11,6 +11,8 @@ class ResponseBuilder {
     private $msg = null;
     private $data = null;
     private $httpCode;
+    private $meta = null;
+    private $link = null;
     private $authToken = null;
 
     public function __construct(bool $status) {
@@ -41,6 +43,16 @@ class ResponseBuilder {
                 ->withHttpCode($httpCode)
                 ->build();
     }
+
+    public static function successWithPagination($query, $data, $msg = null, $httpCode): HttpResponse  {
+        return self::asSuccess()
+            ->withData($data)
+            ->withMessage($msg)
+            ->withHttpCode($httpCode)
+            ->withPagination($query)
+            ->build();
+    }
+
 
     public static function error ($msg, $httpCode, $data = null) {
         return self::asError()
@@ -78,12 +90,30 @@ class ResponseBuilder {
         return $this;
     }
 
+    public function withPagination($query) {
+        $this->meta = [
+            'total_page' => $query->lastPage(),
+            'current_page' => $query->currentPage(),
+            'total_item' => $query->total(),
+            'per_page' => (int)$query->perPage(),
+        ];
+
+        $this->link = [
+            'next' => $query->hasMorePages(),
+            'prev' => boolval($query->previousPageUrl())
+        ];
+
+        return $this;
+    }
+
     public function build(): HttpResponse {
         $response['status'] = $this->status;
-
+        
         !is_null($this->msg) && $response['message'] = $this->msg;
         !is_null($this->authToken) && $response['auth_token'] = $this->authToken;
         !is_null($this->data) && $response['data'] = $this->data;
+        !is_null($this->meta) && $response['meta'] = $this->meta;
+        !is_null($this->link) && $response['link'] = $this->link;
 
         return response($response, $this->httpCode);
     }

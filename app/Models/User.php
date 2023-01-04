@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 // use Laravel\Sanctum\HasApiTokens;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -78,6 +79,19 @@ class User extends Authenticatable
     public function vendor_availability() {
         return $this->hasMany(VendorAvailability::class, 'user_id');
     }
+
+    /**
+     * Only For Api 
+     */
+    public function vendor_available() {
+        $today = Carbon::now();
+        $dayOfTheWeek = $today->dayOfWeek;
+        return $this->hasMany(VendorAvailability::class, 'user_id')
+                    ->where('status', 1)
+                    ->whereTime('start_time', '<=', $today->format("H:i"))
+                    ->whereTime('end_time', '>=', $today->format("H:i"))
+                    ->where('week_day', $dayOfTheWeek);
+    }
     /**
      * Get User Data By Phone no.
      * takes parameter phone no.
@@ -112,5 +126,35 @@ class User extends Authenticatable
      */
     public static function getVendorNameAndId() {
         return static::where('is_vendor', '=', 1)->pluck('name', 'id');
+    }
+    
+    public static function storeDistance($latitude, $longitude, $distance, $page) {
+         
+        $haversine = "(
+            6371 * acos(
+                cos(radians(" .$latitude. "))
+                * cos(radians(`latitude`))
+                * cos(radians(`longitude`) - radians(" .$longitude. "))
+                + sin(radians(" .$latitude. ")) * sin(radians(`latitude`))
+            )
+        )";
+
+        // $data = static::with('vendor_availability')->whereHas('vendor_availability', function($q) {
+        //         $q->where('status', 1);
+        //     })->get();
+
+        $data = static::select("*")
+            ->where('is_vendor', 1)
+            ->where('as_vendor_verified', 1)
+            ->where('is_vendor_online', 1)
+            // ->with('vendor')
+            ->with('vendor_available')->whereHas('vendor_available')
+            ->selectRaw("round($haversine, 2) AS distance")
+            // ->having("distance", "<=", 10)->dd()
+            ->having("distance", "<=", $distance)
+            ->orderby("distance", "asc")
+            ->paginate($page);
+
+        return $data;
     }
 }

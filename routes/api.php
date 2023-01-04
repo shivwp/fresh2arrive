@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CouponController;
-
+use App\Http\Controllers\Api\VendorController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,7 +19,7 @@ use App\Http\Controllers\Api\CouponController;
 */
 
 // Without login api's - Without Token
-Route::POST('login', [AuthController::class, 'login']);
+Route::post('login', [AuthController::class, 'login']);
 Route::POST('verify-otp', [AuthController::class, 'verifyOtp']);
 Route::GET('logout', [AuthController::class, 'logout']);
 Route::POST('resend-otp', [AuthController::class, 'resendOtp']);
@@ -34,8 +34,12 @@ Route::get('product/{productId}', [ProductController::class, 'view']);
 
 Route::get('coupons', [CouponController::class, 'list']);
 
-Route::group(['as' => 'api.', 'middleware' =>['auth:api']], function(){
 
+Route::group(['as' => 'api.', 'middleware' =>['auth:api']], function(){
+    Route::get('stores', [VendorController::class, 'list']);
+    Route::get('user-profile', [AuthController::class, 'userProfile']);
+    Route::POST('update-profile', [AuthController::class, 'updateProfile']);
+    
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

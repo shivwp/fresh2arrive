@@ -10,7 +10,7 @@ class UserReferal extends Model
     use HasFactory;
 
     protected $fillable = [
-        'refered_user_id',
+        'referred_user_id',
         'user_id',
     ];
 }
